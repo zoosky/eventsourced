@@ -48,6 +48,9 @@ class ReceiverRef(receiver: ActorRef) {
    */
   def ??(message: Message)(implicit timeout: Timeout, context: Context): Future[Any] =
     context.producer.ask(Producer.Produce(message, receiver))
+
+  def ???(message: Message)(implicit timeout: Timeout, extension: EventsourcingExtensionImpl): Future[Any] =
+    extension.producer.ask(Producer.Produce(message, receiver))
 }
 
 private [core] class Producer extends Actor {

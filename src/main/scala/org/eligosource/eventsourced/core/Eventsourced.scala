@@ -158,3 +158,33 @@ trait Eventsourced extends Emitter {
     }
   }
 }
+
+trait EventsourcedExperimental extends Emitter {
+  /**
+   * Processor id. Defined by application when adding a processor to a
+   * [[org.eligosource.eventsourced.core.Context]].
+   */
+  def id: Int
+
+  val extension = EventsourcingExtension(context.system)
+
+  override def journal = extension.journal
+  override def channels = extension.channels
+
+  extension.registerProcessor(id, self)
+
+  abstract override def receive = {
+    case cmd: SetContext => {
+      super.receive(cmd)
+    }
+    case msg: Message if (sender == journal) => {
+      super.receive(msg.copy(processorId = id))
+    }
+    case msg: Message /* received from channel or any other sender */ => {
+      journal forward WriteInMsg(id, msg, self)
+    }
+    case msg /* any other message type bypasses journaling */ => {
+      super.receive(msg)
+    }
+  }
+}
