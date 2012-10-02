@@ -54,6 +54,13 @@ class EventsourcingExtensionImpl(system: ActorSystem) extends Extension {
   def processors: Map[Int, ActorRef] =
     processorsRef.get
 
+  /**
+   * Replays input messages to processors.
+   *
+   * @param f function called for each processor id. If the function returns `None`
+   *        no message replay is done for that processor. If it returns `Some(snr)`
+   *        message replay starts from sequence number `snr` for that processor.
+   */
   def replay(f: (Int) => Option[Long]) {
     val replays = processors.collect { case kv if (f(kv._1).isDefined) => ReplayInMsgs(kv._1, f(kv._1).get, kv._2) }
     journal ! BatchReplayInMsgs(replays.toList)
