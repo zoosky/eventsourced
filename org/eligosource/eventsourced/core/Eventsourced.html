@@ -31,21 +31,28 @@
       
       <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Stackable modification for making an actor persitent via event-sourcing (or command-sourcing).
 It writes any input <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a> to a journal. Input messages
-of any other type are not journaled.</p><p>It can be used standalone but when used in combination with <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a>
-or <a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emitter.html">Emitter</a>, <code>Eventsourced</code> must be the last modification:</p><pre>
-  <span class="cmt">// ok</span>
-  <span class="kw">val</span> good = <span class="kw">new</span> Actor <span class="kw">with</span> Receiver <span class="kw">with</span> Eventsourced {
-    <span class="kw">def</span> receive = {
-      <span class="kw">case</span> event <span class="kw">=&gt;</span> <span class="cmt">// ...</span>
-    }
-  }
+of any other type are not journaled. Example:</p><pre>
+ <span class="kw">val</span> system: ActorSystem = ...
+ <span class="kw">val</span> journal: ActorRef = ...
+ <span class="kw">val</span> extension = EventsourcingExtension(system, journal)
 
-  <span class="cmt">// won't work</span>
-  <span class="kw">val</span> bad = <span class="kw">new</span> Actor <span class="kw">with</span> Eventsourced <span class="kw">with</span> Receiver {
-    <span class="kw">def</span> receive = {
-      <span class="kw">case</span> event <span class="kw">=&gt;</span> <span class="cmt">// ...</span>
-    }
-  }
+ <span class="kw">class</span> MyActor <span class="kw">extends</span> Actor {
+   <span class="kw">def</span> receive = {
+     <span class="kw">case</span> msg: Message <span class="kw">=&gt;</span> <span class="cmt">// journaled event message</span>
+     <span class="kw">case</span> msg          <span class="kw">=&gt;</span> <span class="cmt">// non-journaled message</span>
+   }
+ }
+
+ <span class="kw">val</span> myActor = extension.processorOf(ProcessorProps(<span class="num">1</span>, <span class="kw">new</span> MyActor <span class="kw">with</span> Eventsourced))
+
+ myActor ! Message(<span class="lit">"foo event"</span>) <span class="cmt">// message will be journaled</span>
+ myActor ! <span class="lit">"whatever"</span>           <span class="cmt">// message will not be journaled</span>
+</pre><p>If the <code>Eventsourced</code> trait is used in combination with <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a>
+or <a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emitter.html">Emitter</a>, <code>Eventsourced</code> must be the last modification:</p><pre>
+ <span class="kw">new</span> Actor <span class="kw">with</span> Receiver <span class="kw">with</span> Eventsourced { ... }  <span class="cmt">// ok</span>
+ <span class="kw">new</span> Actor <span class="kw">with</span> Emitter <span class="kw">with</span> Eventsourced { ... }   <span class="cmt">// ok</span>
+ <span class="kw">new</span> Actor <span class="kw">with</span> Eventsourced <span class="kw">with</span> Receiver { ... }  <span class="cmt">// won't work</span>
+ <span class="kw">new</span> Actor <span class="kw">with</span> Eventsourced <span class="kw">with</span> Emitter { ... }   <span class="cmt">// won't work</span>
 </pre></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a name="org.eligosource.eventsourced.core.EventsourcingExtension" class="extype" href="EventsourcingExtension.html">EventsourcingExtension</a>
 </p></span></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
