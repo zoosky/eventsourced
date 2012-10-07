@@ -31,15 +31,15 @@
       
       <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>A persistent channel that sends event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>s to
 destinations. Every event message sent to this channel is stored in the journal together
-with an acknowledgement (for the input message the sent message was derived from). If the
-<code>destination</code> responds, the stored message will be deleted from the journal (but not the
-acknowledgement). If a <code>replyDestination</code> is set, the message will be deleted when the
-reply destination responds. If the <code>destination</code> or <code>replyDestination</code> do not respond
-(i.e. when a timeout occurs) or respond with <code>Status.Failure</code>, a re-delivery is attempted.
-If the maximum number of re-delivery attempts have been made the channel restarts itself
-after a certain <i>recovery delay</i> (and starts again with re-deliveries).
+with an acknowledgement. If the <code>destination</code> responds, the stored message will be deleted
+from the journal (but not the acknowledgement). If a <code>replyDestination</code> is set, the stored
+message will be deleted when the reply destination responds. If the <code>destination</code> or
+<code>replyDestination</code> does not respond (i.e. when a timeout occurs) or respond with a
+<code>Status.Failure</code>, a re-delivery is attempted. If the maximum number of re-delivery attempts
+have been made, the channel restarts itself after a certain <i>recovery delay</i> (and starts
+again with re-deliveries).
 </p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>
-     <a name="org.eligosource.eventsourced.core.ReliableChannelConf" class="extype" href="ReliableChannelConf.html">ReliableChannelConf</a>
+     <a name="org.eligosource.eventsourced.core.RedeliveryPolicy" class="extype" href="RedeliveryPolicy.html">RedeliveryPolicy</a>
 </p></span></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>, <span name="akka.actor.Actor" class="extype">Actor</span>, AnyRef, <span name="scala.Any" class="extype">Any</span></div>
@@ -76,10 +76,10 @@ after a certain <i>recovery delay</i> (and starts again with re-deliveries).
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">ReliableChannel</span><span class="params">(<span name="id">id: <span name="scala.Int" class="extype">Int</span></span>, <span name="journal">journal: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>, <span name="conf">conf: <a name="org.eligosource.eventsourced.core.ReliableChannelConf" class="extype" href="ReliableChannelConf.html">ReliableChannelConf</a></span>)</span>
+        <span class="name">ReliableChannel</span><span class="params">(<span name="id">id: <span name="scala.Int" class="extype">Int</span></span>, <span name="journal">journal: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>, <span name="policy">policy: <a name="org.eligosource.eventsourced.core.RedeliveryPolicy" class="extype" href="RedeliveryPolicy.html">RedeliveryPolicy</a></span>)</span>
       </span>
       </h4>
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">id</dt><dd class="cmt"><p>channel id.</p></dd><dt class="param">journal</dt><dd class="cmt"><p>journal of the context that created this channel.</p></dd><dt class="param">conf</dt><dd class="cmt"><p>configuration options for the channel.
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">id</dt><dd class="cmt"><p>channel id.</p></dd><dt class="param">journal</dt><dd class="cmt"><p>journal of the context that created this channel.</p></dd><dt class="param">policy</dt><dd class="cmt"><p>redelivery policy for the channel.
 </p></dd></dl></div>
     </li></ol>
             </div>
@@ -215,8 +215,8 @@ after a certain <i>recovery delay</i> (and starts again with re-deliveries).
         <span class="name">destination</span><span class="result">: <span name="scala.Option" class="extype">Option</span>[<span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Channel destination.</p><div class="fullcomment"><div class="comment cmt"><p>Channel destination. Set when a channel is added to a
-<a name="org.eligosource.eventsourced.core.Context" class="extype" href="Context.html">Context</a>.
+      <p class="shortcomment cmt">Channel destination.</p><div class="fullcomment"><div class="comment cmt"><p>Channel destination. Set when a channel is created via
+<code>EventsourcingExtension.channelOf</code>.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a></dd></dl></div>
     </li><li visbl="pub" name="scala.AnyRef#eq" data-isabs="false">
       <a id="eq(AnyRef):Boolean"></a>
@@ -424,11 +424,11 @@ after a certain <i>recovery delay</i> (and starts again with re-deliveries).
         <span class="name">replyDestination</span><span class="result">: <span name="scala.Option" class="extype">Option</span>[<span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Channel reply destination.</p><div class="fullcomment"><div class="comment cmt"><p>Channel reply destination. Optionally set when a channel is added to a
-<a name="org.eligosource.eventsourced.core.Context" class="extype" href="Context.html">Context</a>. If set, responses from
-destinations are routed to the reply destination. The order of messages
-sent to the reply destination does not necessarily correlate with the
-order of messages sent to the destination.
+      <p class="shortcomment cmt">Channel reply destination.</p><div class="fullcomment"><div class="comment cmt"><p>Channel reply destination. Optionally set when a channel is created via
+<code>EventsourcingExtension.channelOf</code>. If set, responses from destinations
+are routed to the reply destination. The order of messages sent to the
+reply destination does not necessarily correlate with the order of
+messages sent to the destination.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a></dd></dl></div>
     </li><li visbl="pub" name="akka.actor.Actor#self" data-isabs="false">
       <a id="self:ActorRef"></a>

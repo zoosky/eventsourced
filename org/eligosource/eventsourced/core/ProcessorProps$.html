@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
         <head>
-          <title>org.eligosource.eventsourced.core.Context</title>
+          <title>org.eligosource.eventsourced.core.ProcessorProps</title>
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link type="text/css" media="screen" rel="stylesheet" href="../../../../lib/template.css" />
@@ -14,9 +14,9 @@
         </head>
         <body onload="sh_highlightDocument('../lib/', '.min.js');" class="value">
       <div id="definition">
-        <a title="Go to companion" href="Context.html"><img src="../../../../lib/object_to_class_big.png" /></a>
+        <a title="Go to companion" href="ProcessorProps.html"><img src="../../../../lib/object_to_class_big.png" /></a>
         <p id="owner"><a name="org" class="extype" href="../../../package.html">org</a>.<a name="org.eligosource" class="extype" href="../../package.html">eligosource</a>.<a name="org.eligosource.eventsourced" class="extype" href="../package.html">eventsourced</a>.<a name="org.eligosource.eventsourced.core" class="extype" href="package.html">core</a></p>
-        <h1><a title="Go to companion" href="Context.html">Context</a></h1>
+        <h1><a title="Go to companion" href="ProcessorProps.html">ProcessorProps</a></h1>
       </div>
 
       <h4 class="signature" id="signature">
@@ -25,7 +25,7 @@
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">Context</span><span class="result"> extends <span name="scala.Serializable" class="extype">Serializable</span></span>
+        <span class="name">ProcessorProps</span><span class="result"> extends <span name="scala.Serializable" class="extype">Serializable</span></span>
       </span>
       </h4>
       
@@ -45,7 +45,7 @@
               <span class="filtertype">Inherited</span>
               <ol><li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li></ol>
-              <ol id="linearization"><li name="org.eligosource.eventsourced.core.Context" class="in"><span>Context</span></li><li name="scala.Serializable" class="in"><span>Serializable</span></li><li name="java.io.Serializable" class="in"><span>Serializable</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
+              <ol id="linearization"><li name="org.eligosource.eventsourced.core.ProcessorProps" class="in"><span>ProcessorProps</span></li><li name="scala.Serializable" class="in"><span>Serializable</span></li><li name="java.io.Serializable" class="in"><span>Serializable</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
             </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -123,19 +123,19 @@
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Context#apply" data-isabs="false">
-      <a id="apply(ActorRef)(ActorSystem):Context"></a>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ProcessorProps#apply" data-isabs="false">
+      <a id="apply(Int,⇒ Eventsourced)(ActorRefFactory):ProcessorProps"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="journal">journal: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="system">system: <span name="akka.actor.ActorSystem" class="extype">ActorSystem</span></span>)</span><span class="result">: <a name="org.eligosource.eventsourced.core.Context" class="extype" href="Context.html">Context</a></span>
+        <span class="name">apply</span><span class="params">(<span name="id">id: <span name="scala.Int" class="extype">Int</span></span>, <span name="processorFactory">processorFactory: ⇒ <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="actorRefFactory">actorRefFactory: <span name="akka.actor.ActorRefFactory" class="extype">ActorRefFactory</span></span>)</span><span class="result">: <a name="org.eligosource.eventsourced.core.ProcessorProps" class="extype" href="ProcessorProps.html">ProcessorProps</a></span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Creates a new context with no processors and an empty channel map.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a new context with no processors and an empty channel map.
-</p></div><dl class="paramcmts block"><dt class="param">journal</dt><dd class="cmt"><p>journal for the new context.</p></dd><dt>returns</dt><dd class="cmt"><p>new context.
+      <p class="shortcomment cmt">Creates a processor configuration object from a processor id and processor factory.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a processor configuration object from a processor id and processor factory.
+</p></div><dl class="paramcmts block"><dt class="param">id</dt><dd class="cmt"><p>processor id.</p></dd><dt class="param">processorFactory</dt><dd class="cmt"><p><a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processor factory.</p></dd><dt class="param">actorRefFactory</dt><dd class="cmt"><p><a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processor ref factory.</p></dd><dt>returns</dt><dd class="cmt"><p>processor configuration object containing the created processor ref.
 </p></dd></dl></div>
     </li><li visbl="pub" name="scala.Any#asInstanceOf" data-isabs="false">
       <a id="asInstanceOf[T0]:T0"></a>
@@ -275,7 +275,7 @@
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li visbl="prt" name="org.eligosource.eventsourced.core.Context#readResolve" data-isabs="false">
+    </li><li visbl="prt" name="org.eligosource.eventsourced.core.ProcessorProps#readResolve" data-isabs="false">
       <a id="readResolve():AnyRef"></a>
       <h4 class="signature">
       <span class="modifier_kind">

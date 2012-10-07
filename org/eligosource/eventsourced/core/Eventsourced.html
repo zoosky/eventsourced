@@ -25,124 +25,31 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">Eventsourced</span><span class="result"> extends <a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emitter.html">Emitter</a></span>
+        <span class="name">Eventsourced</span><span class="result"> extends <a name="akka.actor.TargetBehavior" class="extype" href="../../../../akka/actor/TargetBehavior.html">TargetBehavior</a></span>
       </span>
       </h4>
       
       <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Stackable modification for making an actor persitent via event-sourcing (or command-sourcing).
-<code>Eventsourced</code> inherits all capabilities from <a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emitter.html">Emitter</a>,
-<a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a> and <a name="akka.actor.ReceiverBehavior" class="extype" href="../../../../akka/actor/ReceiverBehavior.html">ReceiverBehavior</a>. Additionally,
-it writes any input <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a> to a journal. Input messages
-of any other type are not journaled. Example:</p><pre>
-<span class="kw">import</span> java.io.File
-
-<span class="kw">import</span> akka.actor._
-<span class="kw">import</span> akka.pattern.ask
-<span class="kw">import</span> akka.util.duration._
-<span class="kw">import</span> akka.util.Timeout
-
-<span class="kw">import</span> org.eligosource.eventsourced.core._
-<span class="kw">import</span> org.eligosource.eventsourced.journal.LeveldbJournal
-
-<span class="kw">implicit</span> <span class="kw">val</span> system = ActorSystem(<span class="lit">"example"</span>)
-<span class="kw">implicit</span> <span class="kw">val</span> timeout = Timeout(<span class="num">5</span> seconds)
-
-<span class="cmt">// create a journal</span>
-<span class="kw">val</span> journal = LeveldbJournal(<span class="kw">new</span> File(<span class="lit">"target/example"</span>))
-
-<span class="cmt">// Modification 'with Eventsourced' makes actor persistent (using event/command-sourcing)</span>
-<span class="kw">def</span> processorA = <span class="kw">new</span> ActorA <span class="kw">with</span> Eventsourced
-
-<span class="cmt">// Modification 'with Eventsourced' makes actor persistent (unsing event/command-sourcing)</span>
-<span class="kw">def</span> processorB = <span class="kw">new</span> ActorB <span class="kw">with</span> Eventsourced
-
-<span class="cmt">// Modification 'with Receiver' makes actor an acknowledging event/command message receiver</span>
-<span class="kw">def</span> destination = <span class="kw">new</span> Destination <span class="kw">with</span> Receiver
-
-<span class="cmt">// Put actors into an event/command-sourcing context and wire them via channels</span>
-<span class="kw">implicit</span> <span class="kw">val</span> context = Context(journal)
-  .addProcessor(<span class="num">1</span>, processorA)         <span class="cmt">// add processorA with id == 1</span>
-  .addProcessor(<span class="num">2</span>, processorB)         <span class="cmt">// add processorB with id == 2</span>
-  .addChannel(<span class="lit">"channelA"</span>, <span class="num">1</span>)           <span class="cmt">// channel to processorA</span>
-  .addChannel(<span class="lit">"channelB"</span>, destination) <span class="cmt">// channel to destination</span>
-
-<span class="cmt">// Recover context from existing journal entries (if any)</span>
-<span class="cmt">// - initializes processors</span>
-<span class="cmt">// - replays events/commands to processors</span>
-<span class="cmt">// - delivers messages via channels that</span>
-<span class="cmt">//   haven't been acknowledged so far</span>
-context.init()
-
-<span class="cmt">// get processor with id == 2</span>
-<span class="kw">val</span> p: ActorRef = context.processors(<span class="num">2</span>)
-
-<span class="cmt">// send event message to p</span>
-p ! Message(<span class="lit">"some event"</span>)
-
-<span class="cmt">// send event message to p and receive response (Ack) once the event has been persisted</span>
-p ? Message(<span class="lit">"some event"</span>) onSuccess { <span class="kw">case</span> Ack <span class="kw">=&gt;</span> println(<span class="lit">"event written to journal"</span>) }
-
-<span class="cmt">// send event message to p but receive application-level response from processor</span>
-p ?? Message(<span class="lit">"some event"</span>) onSuccess { <span class="kw">case</span> resp <span class="kw">=&gt;</span> println(<span class="lit">"received response %s"</span> format resp) }
-
-<span class="cmt">// send message to p (bypasses journaling because it's not an instance of Message)</span>
-p ! <span class="lit">"blah"</span>
-
-
-<span class="kw">class</span> ActorA <span class="kw">extends</span> Actor {
-  <span class="kw">def</span> receive = {
-    <span class="kw">case</span> event <span class="kw">=&gt;</span> {
-      <span class="cmt">// do something with event</span>
-      println(<span class="lit">"received event = %s"</span> format event)
+It writes any input <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a> to a journal. Input messages
+of any other type are not journaled.</p><p>It can be used standalone but when used in combination with <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a>
+or <a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emitter.html">Emitter</a>, <code>Eventsourced</code> must be the last modification:</p><pre>
+  <span class="cmt">// ok</span>
+  <span class="kw">val</span> good = <span class="kw">new</span> Actor <span class="kw">with</span> Receiver <span class="kw">with</span> Eventsourced {
+    <span class="kw">def</span> receive = {
+      <span class="kw">case</span> event <span class="kw">=&gt;</span> <span class="cmt">// ...</span>
     }
   }
-}
 
-<span class="kw">class</span> ActorB <span class="kw">extends</span> Actor { <span class="kw">this</span>: Eventsourced <span class="kw">=&gt;</span>
-  <span class="kw">def</span> receive = {
-    <span class="kw">case</span> <span class="lit">"blah"</span> <span class="kw">=&gt;</span> {
-      println(<span class="lit">"received non-journaled message"</span>)
-    }
-    <span class="kw">case</span> event <span class="kw">=&gt;</span> {
-      <span class="cmt">// Eventsourced actors have access to:</span>
-      <span class="kw">val</span> seqnr = sequenceNr       <span class="cmt">// sequence number of journaled message</span>
-      <span class="kw">val</span> sdrid = senderMessageId  <span class="cmt">// message id provided by sender (duplicate detection)</span>
-      <span class="kw">val</span> initr = initiator        <span class="cmt">// initiatal sender of message (can be different from current 'sender')</span>
-      <span class="kw">val</span> prcid = id               <span class="cmt">// processor id</span>
-      <span class="cmt">// ...</span>
-
-      <span class="cmt">// do something with event</span>
-      println(<span class="lit">"received event = %s (processor id = %d, sequence nr = %d)"</span> format(event, prcid, seqnr))
-
-      <span class="cmt">// Eventsourced actors can emit events to named channels</span>
-      emitter(<span class="lit">"channelA"</span>).emitEvent(<span class="lit">"out-a"</span>)
-      emitter(<span class="lit">"channelB"</span>).emitEvent(<span class="lit">"out-b"</span>)
-
-      <span class="cmt">// optionally respond to initial sender (initiator)</span>
-      <span class="cmt">// (intitiator == context.system.deadLetters if unknown)</span>
-      initiator ! <span class="lit">"done"</span>
+  <span class="cmt">// won't work</span>
+  <span class="kw">val</span> bad = <span class="kw">new</span> Actor <span class="kw">with</span> Eventsourced <span class="kw">with</span> Receiver {
+    <span class="kw">def</span> receive = {
+      <span class="kw">case</span> event <span class="kw">=&gt;</span> <span class="cmt">// ...</span>
     }
   }
-}
-
-<span class="cmt">// Receiver extracts event from received Message and (automatically) acknowledges receipt</span>
-<span class="kw">class</span> Destination <span class="kw">extends</span> Actor { <span class="kw">this</span>: Receiver <span class="kw">=&gt;</span>
-  <span class="kw">def</span> receive = {
-    <span class="kw">case</span> event <span class="kw">=&gt;</span> {
-      <span class="cmt">// Receiver actors have access to:</span>
-      <span class="kw">val</span> seqnr = sequenceNr       <span class="cmt">// sequence number of journaled message</span>
-      <span class="kw">val</span> sdrid = senderMessageId  <span class="cmt">// message id provided by sender (duplicate detection)</span>
-      <span class="kw">val</span> initr = initiator        <span class="cmt">// initiatal sender of message (can be different from current 'sender')</span>
-      <span class="cmt">// ...</span>
-
-       <span class="cmt">// do something with event</span>
-      println(<span class="lit">"received event = %s"</span> format event)
-    }
-  }
-}
-</pre></div><div class="toggleContainer block">
+</pre></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a name="org.eligosource.eventsourced.core.EventsourcingExtension" class="extype" href="EventsourcingExtension.html">EventsourcingExtension</a>
+</p></span></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emitter.html">Emitter</a>, <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a>, <a name="akka.actor.ReceiverBehavior" class="extype" href="../../../../akka/actor/ReceiverBehavior.html">ReceiverBehavior</a>, <span name="akka.actor.Actor" class="extype">Actor</span>, AnyRef, <span name="scala.Any" class="extype">Any</span></div>
+          <div class="superTypes hiddenContent"><a name="akka.actor.TargetBehavior" class="extype" href="../../../../akka/actor/TargetBehavior.html">TargetBehavior</a>, <span name="akka.actor.Actor" class="extype">Actor</span>, AnyRef, <span name="scala.Any" class="extype">Any</span></div>
         </div></div>
     
 
@@ -156,7 +63,7 @@ p ! <span class="lit">"blah"</span>
               <span class="filtertype">Inherited</span>
               <ol><li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li></ol>
-              <ol id="linearization"><li name="org.eligosource.eventsourced.core.Eventsourced" class="in"><span>Eventsourced</span></li><li name="org.eligosource.eventsourced.core.Emitter" class="in"><span>Emitter</span></li><li name="org.eligosource.eventsourced.core.Receiver" class="in"><span>Receiver</span></li><li name="akka.actor.ReceiverBehavior" class="in"><span>ReceiverBehavior</span></li><li name="akka.actor.Actor" class="in"><span>Actor</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
+              <ol id="linearization"><li name="org.eligosource.eventsourced.core.Eventsourced" class="in"><span>Eventsourced</span></li><li name="akka.actor.TargetBehavior" class="in"><span>TargetBehavior</span></li><li name="akka.actor.Actor" class="in"><span>Actor</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
             </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -249,20 +156,6 @@ p ! <span class="lit">"blah"</span>
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Receiver#ack" data-isabs="false">
-      <a id="ack():Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">ack</span><span class="params">()</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Acknowledges the receipt of the current event message by replying with <code>Ack</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Acknowledges the receipt of the current event message by replying with <code>Ack</code>.
-The reply goes to <code>Actor.sender</code> (a channel, for example) not the <code>initiator</code>.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a></dd></dl></div>
     </li><li visbl="pub" name="scala.Any#asInstanceOf" data-isabs="false">
       <a id="asInstanceOf[T0]:T0"></a>
       <h4 class="signature">
@@ -275,7 +168,7 @@ The reply goes to <code>Actor.sender</code> (a channel, for example) not the <co
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Emitter#autoAck" data-isabs="false">
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Eventsourced#autoAck" data-isabs="false">
       <a id="autoAck:Boolean"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -286,21 +179,11 @@ The reply goes to <code>Actor.sender</code> (a channel, for example) not the <co
         <span class="name">autoAck</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Overrides to <code>false</code></p><div class="fullcomment"><div class="comment cmt"><p>Overrides to <code>false</code></p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emitter.html">Emitter</a> → <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a></dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Emitter#channels" data-isabs="false">
-      <a id="channels:Map[String, ActorRef]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">channels</span><span class="result">: Map[String, <span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Returns the channel map of the injected <a name="org.eligosource.eventsourced.core.Context" class="extype" href="Context.html">Context</a>
-</p><div class="fullcomment"><div class="comment cmt"><p>Returns the channel map of the injected <a name="org.eligosource.eventsourced.core.Context" class="extype" href="Context.html">Context</a>
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emitter.html">Emitter</a></dd></dl></div>
+      <p class="shortcomment cmt">Overrides to <code>false</code> to avoid that an existing <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a>
+modification additionally sends an <code>Ack</code> to the current <code>sender</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Overrides to <code>false</code> to avoid that an existing <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a>
+modification additionally sends an <code>Ack</code> to the current <code>sender</code>. This ensures that the current
+sender will receive <code>Ack</code>s only from the journal that is used by this trait.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="">Eventsourced</a> → <a name="akka.actor.TargetBehavior" class="extype" href="../../../../akka/actor/TargetBehavior.html">TargetBehavior</a></dd></dl></div>
     </li><li visbl="prt" name="scala.AnyRef#clone" data-isabs="false">
       <a id="clone():AnyRef"></a>
       <h4 class="signature">
@@ -328,40 +211,6 @@ The reply goes to <code>Actor.sender</code> (a channel, for example) not the <co
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="akka" class="extype" href="../../../../akka/package.html">akka</a>] </dd><dt>Definition Classes</dt><dd>Actor</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Emitter#emitter" data-isabs="false">
-      <a id="emitter(String):MessageEmitter"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">emitter</span><span class="params">(<span name="channelName">channelName: String</span>)</span><span class="result">: <a name="org.eligosource.eventsourced.core.MessageEmitter" class="extype" href="MessageEmitter.html">MessageEmitter</a></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Returns a message emitter that captures the current event <code>message</code> and a channel
-mapped with <code>channelName</code> in the <code>channels</code> map of the injected context.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a message emitter that captures the current event <code>message</code> and a channel
-mapped with <code>channelName</code> in the <code>channels</code> map of the injected context. If the mapping
-doesn't exist, the channel will be <code>context.system.deadLetters</code>. Applications can run
-the returned emitter from within any thread for sending output messages (which will be
-derived from the captured event <code>message</code>).
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emitter.html">Emitter</a></dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Emitter#emitter" data-isabs="false">
-      <a id="emitter:MessageEmitterFactory"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">emitter</span><span class="result">: <a name="org.eligosource.eventsourced.core.MessageEmitterFactory" class="extype" href="MessageEmitterFactory.html">MessageEmitterFactory</a></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Returns a message emitter factory that captures the current event <code>message</code> and the
-<code>channels</code> map of the injected context.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a message emitter factory that captures the current event <code>message</code> and the
-<code>channels</code> map of the injected context. Applications can run the returned emitter factory
-from within any thread.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emitter.html">Emitter</a></dd></dl></div>
     </li><li visbl="pub" name="scala.AnyRef#eq" data-isabs="false">
       <a id="eq(AnyRef):Boolean"></a>
       <h4 class="signature">
@@ -401,38 +250,6 @@ from within any thread.
                 <span class="name">@throws</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Emitter#forwardContext" data-isabs="false">
-      <a id="forwardContext:Boolean"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">forwardContext</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">If <code>true</code>, concrete <code>Emitter</code>s will be forwarded the <code>SetContext</code> message which is
-otherwise retained by this trait.</p><div class="fullcomment"><div class="comment cmt"><p>If <code>true</code>, concrete <code>Emitter</code>s will be forwarded the <code>SetContext</code> message which is
-otherwise retained by this trait. Default is <code>false</code> and can be set to <code>true</code> by
-mixing in <a name="org.eligosource.eventsourced.core.ForwardContext" class="extype" href="ForwardContext.html">ForwardContext</a>.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emitter.html">Emitter</a></dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Receiver#forwardMessage" data-isabs="false">
-      <a id="forwardMessage:Boolean"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">forwardMessage</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">If <code>true</code>, concrete receivers will receive the whole event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>
-instead of the event only.</p><div class="fullcomment"><div class="comment cmt"><p>If <code>true</code>, concrete receivers will receive the whole event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>
-instead of the event only. Default is <code>false</code> and can be set to <code>true</code>
-by mixing in <a name="org.eligosource.eventsourced.core.ForwardMessage" class="extype" href="ForwardMessage.html">ForwardMessage</a>.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a></dd></dl></div>
     </li><li visbl="pub" name="scala.AnyRef#getClass" data-isabs="false">
       <a id="getClass():java.lang.Class[_]"></a>
       <h4 class="signature">
@@ -468,41 +285,9 @@ by mixing in <a name="org.eligosource.eventsourced.core.ForwardMessage" class="e
         <span class="name">id</span><span class="result">: <span name="scala.Int" class="extype">Int</span></span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Processor id.</p><div class="fullcomment"><div class="comment cmt"><p>Processor id. Defined by application when adding a processor to a
-<a name="org.eligosource.eventsourced.core.Context" class="extype" href="Context.html">Context</a>.
+      <p class="shortcomment cmt">Processor id.</p><div class="fullcomment"><div class="comment cmt"><p>Processor id. Must only be accessed from within the modified actor's
+<code>receive</code> method.
 </p></div></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Receiver#initiator" data-isabs="false">
-      <a id="initiator:ActorRef"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">initiator</span><span class="result">: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Initial message option (initiator) of current event message or deadLetters
-if the initiator is unknown.</p><div class="fullcomment"><div class="comment cmt"><p>Initial message option (initiator) of current event message or deadLetters
-if the initiator is unknown.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a></dd><dt>Exceptions thrown</dt><dd><span class="cmt">IllegalStateException<p>if the the last message received by this receiver
-is not of type <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>
-</p></span></dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Receiver#initiatorOption" data-isabs="false">
-      <a id="initiatorOption:Option[ActorRef]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">initiatorOption</span><span class="result">: <span name="scala.Option" class="extype">Option</span>[<span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Initial event message sender (initiator) option of current event message.</p><div class="fullcomment"><div class="comment cmt"><p>Initial event message sender (initiator) option of current event message.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a></dd><dt>Exceptions thrown</dt><dd><span class="cmt">IllegalStateException<p>if the the last message received by this receiver
-is not of type <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>
-</p></span></dd></dl></div>
     </li><li visbl="pub" name="scala.Any#isInstanceOf" data-isabs="false">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <h4 class="signature">
@@ -515,66 +300,6 @@ is not of type <a name="org.eligosource.eventsourced.core.Message" class="extype
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Emitter#journal" data-isabs="false">
-      <a id="journal:ActorRef"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">journal</span><span class="result">: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Returns the journal of the injected <a name="org.eligosource.eventsourced.core.Context" class="extype" href="Context.html">Context</a>
-</p><div class="fullcomment"><div class="comment cmt"><p>Returns the journal of the injected <a name="org.eligosource.eventsourced.core.Context" class="extype" href="Context.html">Context</a>
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emitter.html">Emitter</a></dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Receiver#message" data-isabs="false">
-      <a id="message:Message"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">message</span><span class="result">: <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Current event message.</p><div class="fullcomment"><div class="comment cmt"><p>Current event message.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a></dd><dt>Exceptions thrown</dt><dd><span class="cmt">IllegalStateException<p>if the the last message received by this receiver
-is not of type <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>
-</p></span></dd><dt>See also</dt><dd><span class="cmt"><p><code>messageOption</code>
-</p></span></dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Receiver#messageOption" data-isabs="false">
-      <a id="messageOption:Option[Message]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">messageOption</span><span class="result">: <span name="scala.Option" class="extype">Option</span>[<a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>]</span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Current event message option.</p><div class="fullcomment"><div class="comment cmt"><p>Current event message option. <code>None</code> if the last message received by this receiver
-is not of type <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a></dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Receiver#nak" data-isabs="false">
-      <a id="nak(Throwable):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">nak</span><span class="params">(<span name="t">t: Throwable</span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Negatively acknowledges the receipt of current event message by replying with
-<code>Status.Failure</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Negatively acknowledges the receipt of current event message by replying with
-<code>Status.Failure</code>. The reply goes to <code>Actor.sender</code> (a channel, for example)
-not the <code>initiator</code>.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a></dd></dl></div>
     </li><li visbl="pub" name="scala.AnyRef#ne" data-isabs="false">
       <a id="ne(AnyRef):Boolean"></a>
       <h4 class="signature">
@@ -670,7 +395,7 @@ not the <code>initiator</code>.
         <span class="name">receive</span><span class="result">: <span name="scala.PartialFunction" class="extype">PartialFunction</span>[<span name="scala.Any" class="extype">Any</span>, <span name="scala.Unit" class="extype">Unit</span>]</span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="">Eventsourced</a> → <a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emitter.html">Emitter</a> → <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a> → <a name="akka.actor.ReceiverBehavior" class="extype" href="../../../../akka/actor/ReceiverBehavior.html">ReceiverBehavior</a> → Actor</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="">Eventsourced</a> → <a name="akka.actor.TargetBehavior" class="extype" href="../../../../akka/actor/TargetBehavior.html">TargetBehavior</a> → Actor</dd></dl></div>
     </li><li visbl="pub" name="akka.actor.Actor#self" data-isabs="false">
       <a id="self:ActorRef"></a>
       <h4 class="signature">
@@ -695,37 +420,6 @@ not the <code>initiator</code>.
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Receiver#senderMessageId" data-isabs="false">
-      <a id="senderMessageId:Option[String]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">senderMessageId</span><span class="result">: <span name="scala.Option" class="extype">Option</span>[String]</span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Sender message id of current event message.</p><div class="fullcomment"><div class="comment cmt"><p>Sender message id of current event message.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a></dd><dt>Exceptions thrown</dt><dd><span class="cmt">IllegalStateException<p>if the the last message received by this receiver
-is not of type <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>
-</p></span></dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Receiver#sequenceNr" data-isabs="false">
-      <a id="sequenceNr:Long"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">sequenceNr</span><span class="result">: <span name="scala.Long" class="extype">Long</span></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Sequence number of current event message
-</p><div class="fullcomment"><div class="comment cmt"><p>Sequence number of current event message
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a></dd><dt>Exceptions thrown</dt><dd><span class="cmt">IllegalStateException<p>if the the last message received by this receiver
-is not of type <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>
-</p></span></dd></dl></div>
     </li><li visbl="pub" name="akka.actor.Actor#supervisorStrategy" data-isabs="false">
       <a id="supervisorStrategy():SupervisorStrategy"></a>
       <h4 class="signature">
@@ -826,12 +520,8 @@ is not of type <a name="org.eligosource.eventsourced.core.Message" class="extype
         </div>
 
         <div id="inheritedMembers">
-        <div name="org.eligosource.eventsourced.core.Emitter" class="parent">
-              <h3>Inherited from <a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emitter.html">Emitter</a></h3>
-            </div><div name="org.eligosource.eventsourced.core.Receiver" class="parent">
-              <h3>Inherited from <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a></h3>
-            </div><div name="akka.actor.ReceiverBehavior" class="parent">
-              <h3>Inherited from <a name="akka.actor.ReceiverBehavior" class="extype" href="../../../../akka/actor/ReceiverBehavior.html">ReceiverBehavior</a></h3>
+        <div name="akka.actor.TargetBehavior" class="parent">
+              <h3>Inherited from <a name="akka.actor.TargetBehavior" class="extype" href="../../../../akka/actor/TargetBehavior.html">TargetBehavior</a></h3>
             </div><div name="akka.actor.Actor" class="parent">
               <h3>Inherited from <span name="akka.actor.Actor" class="extype">Actor</span></h3>
             </div><div name="scala.AnyRef" class="parent">

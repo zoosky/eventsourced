@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
         <head>
-          <title>org.eligosource.eventsourced.core.ReceiverRef</title>
+          <title>org.eligosource.eventsourced.core.EventsourcingExtension</title>
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link type="text/css" media="screen" rel="stylesheet" href="../../../../lib/template.css" />
@@ -12,27 +12,27 @@
       <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
     
         </head>
-        <body onload="sh_highlightDocument('../lib/', '.min.js');" class="type">
+        <body onload="sh_highlightDocument('../lib/', '.min.js');" class="value">
       <div id="definition">
-        <img src="../../../../lib/class_big.png" />
+        <a title="Go to companion" href="EventsourcingExtension.html"><img src="../../../../lib/object_to_class_big.png" /></a>
         <p id="owner"><a name="org" class="extype" href="../../../package.html">org</a>.<a name="org.eligosource" class="extype" href="../../package.html">eligosource</a>.<a name="org.eligosource.eventsourced" class="extype" href="../package.html">eventsourced</a>.<a name="org.eligosource.eventsourced.core" class="extype" href="package.html">core</a></p>
-        <h1>ReceiverRef</h1>
+        <h1><a title="Go to companion" href="EventsourcingExtension.html">EventsourcingExtension</a></h1>
       </div>
 
       <h4 class="signature" id="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">class</span>
+        <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">ReceiverRef</span><span class="result"> extends AnyRef</span>
+        <span class="name">EventsourcingExtension</span><span class="result"> extends <span name="akka.actor.ExtensionId" class="extype">ExtensionId</span>[<a name="org.eligosource.eventsourced.core.EventsourcingExtension" class="extype" href="EventsourcingExtension.html">EventsourcingExtension</a>] with <span name="akka.actor.ExtensionIdProvider" class="extype">ExtensionIdProvider</span></span>
       </span>
       </h4>
       
-      <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a> <code>receiver</code> extension.
+      <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Event-sourcing extension access point.
 </p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent">AnyRef, <span name="scala.Any" class="extype">Any</span></div>
+          <div class="superTypes hiddenContent"><span name="akka.actor.ExtensionIdProvider" class="extype">ExtensionIdProvider</span>, <span name="akka.actor.ExtensionId" class="extype">ExtensionId</span>[<a name="org.eligosource.eventsourced.core.EventsourcingExtension" class="extype" href="EventsourcingExtension.html">EventsourcingExtension</a>], AnyRef, <span name="scala.Any" class="extype">Any</span></div>
         </div></div>
     
 
@@ -46,7 +46,7 @@
               <span class="filtertype">Inherited</span>
               <ol><li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li></ol>
-              <ol id="linearization"><li name="org.eligosource.eventsourced.core.ReceiverRef" class="in"><span>ReceiverRef</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
+              <ol id="linearization"><li name="org.eligosource.eventsourced.core.EventsourcingExtension" class="in"><span>EventsourcingExtension</span></li><li name="akka.actor.ExtensionIdProvider" class="in"><span>ExtensionIdProvider</span></li><li name="akka.actor.ExtensionId" class="in"><span>ExtensionId</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
             </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -56,23 +56,7 @@
 
       <div id="template">
         <div id="allMembers">
-        <div class="members" id="constructors">
-              <h3>Instance Constructors</h3>
-              <ol><li visbl="pub" name="org.eligosource.eventsourced.core.ReceiverRef#this" data-isabs="false">
-      <a id="this:ReceiverRef"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">new</span>
-      </span>
-      <span class="symbol">
-        <span class="name">ReceiverRef</span><span class="params">(<span name="receiver">receiver: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>)</span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">receiver</dt><dd class="cmt"><p>receiver actor reference.
-</p></dd></dl></div>
-    </li></ol>
-            </div>
+        
 
         
 
@@ -140,29 +124,34 @@
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReceiverRef#??" data-isabs="false">
-      <a id="??(Message)(Timeout,Context):Future[Any]"></a>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#apply" data-isabs="false">
+      <a id="apply(ActorSystem,ActorRef):EventsourcingExtension"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name" title="gt4s: $qmark$qmark">??</span><span class="params">(<span name="message">message: <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="timeout">timeout: <span name="akka.util.Timeout" class="extype">Timeout</span></span>, <span name="context">context: <a name="org.eligosource.eventsourced.core.Context" class="extype" href="Context.html">Context</a></span>)</span><span class="result">: <span name="akka.dispatch.Future" class="extype">Future</span>[<span name="scala.Any" class="extype">Any</span>]</span>
+        <span class="name">apply</span><span class="params">(<span name="system">system: <span name="akka.actor.ActorSystem" class="extype">ActorSystem</span></span>, <span name="journal">journal: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>)</span><span class="result">: <a name="org.eligosource.eventsourced.core.EventsourcingExtension" class="extype" href="EventsourcingExtension.html">EventsourcingExtension</a></span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Sends an event <code>message</code> to <code>receiver</code> where the <code>receiver</code> will receive
-the sent <code>message</code> with a defined <code>sender</code> field that represents the returned
-future.</p><div class="fullcomment"><div class="comment cmt"><p>Sends an event <code>message</code> to <code>receiver</code> where the <code>receiver</code> will receive
-the sent <code>message</code> with a defined <code>sender</code> field that represents the returned
-future.</p><p>Actors that are modified with <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a>
-or any of its sub-traits can obtain the <code>sender</code> from the current event message
-via the <code>Receiver.initiator</code> method. Sending a message to <code>initiator</code> (via
-<code>initiator ! msg</code>) will complete the returned future.</p><p>Completion of the future also works when a receiver further sends the received
-<code>message</code> to other receivers, either directly or via channels.</p><p>In contrast, when using Akka's <code>?</code> (ask) to send an event message, the future
-will be completed with an <code>Ack</code> once the message has been written to the journal.
-</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>event message.</p></dd><dt class="param">timeout</dt><dd class="cmt"><p>reply timeout.
+      <p class="shortcomment cmt">Obtains the <code>EventsourcingExtension</code> instance associated with <code>system</code>, registers a <code>journal</code>
+at that instance and returns it.</p><div class="fullcomment"><div class="comment cmt"><p>Obtains the <code>EventsourcingExtension</code> instance associated with <code>system</code>, registers a <code>journal</code>
+at that instance and returns it.
+</p></div><dl class="paramcmts block"><dt class="param">system</dt><dd class="cmt"><p>actor system associated with the returned extension instance.</p></dd><dt class="param">journal</dt><dd class="cmt"><p>journal to register.
 </p></dd></dl></div>
+    </li><li visbl="pub" name="akka.actor.ExtensionId#apply" data-isabs="false">
+      <a id="apply(ActorSystem):EventsourcingExtension"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="params">(<span name="system">system: <span name="akka.actor.ActorSystem" class="extype">ActorSystem</span></span>)</span><span class="result">: <a name="org.eligosource.eventsourced.core.EventsourcingExtension" class="extype" href="EventsourcingExtension.html">EventsourcingExtension</a></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ExtensionId</dd></dl></div>
     </li><li visbl="pub" name="scala.Any#asInstanceOf" data-isabs="false">
       <a id="asInstanceOf[T0]:T0"></a>
       <h4 class="signature">
@@ -190,6 +179,18 @@ will be completed with an <code>Ack</code> once the message has been written to 
                 <span class="name">@throws</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#createExtension" data-isabs="false">
+      <a id="createExtension(ExtendedActorSystem):EventsourcingExtension"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">createExtension</span><span class="params">(<span name="system">system: <span name="akka.actor.ExtendedActorSystem" class="extype">ExtendedActorSystem</span></span>)</span><span class="result">: <a name="org.eligosource.eventsourced.core.EventsourcingExtension" class="extype" href="EventsourcingExtension.html">EventsourcingExtension</a></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.EventsourcingExtension" class="extype" href="">EventsourcingExtension</a> → ExtensionId</dd></dl></div>
     </li><li visbl="pub" name="scala.AnyRef#eq" data-isabs="false">
       <a id="eq(AnyRef):Boolean"></a>
       <h4 class="signature">
@@ -229,6 +230,18 @@ will be completed with an <code>Ack</code> once the message has been written to 
                 <span class="name">@throws</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li visbl="pub" name="akka.actor.ExtensionId#get" data-isabs="false">
+      <a id="get(ActorSystem):EventsourcingExtension"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">get</span><span class="params">(<span name="system">system: <span name="akka.actor.ActorSystem" class="extype">ActorSystem</span></span>)</span><span class="result">: <a name="org.eligosource.eventsourced.core.EventsourcingExtension" class="extype" href="EventsourcingExtension.html">EventsourcingExtension</a></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>ExtensionId</dd></dl></div>
     </li><li visbl="pub" name="scala.AnyRef#getClass" data-isabs="false">
       <a id="getClass():java.lang.Class[_]"></a>
       <h4 class="signature">
@@ -265,6 +278,18 @@ will be completed with an <code>Ack</code> once the message has been written to 
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#lookup" data-isabs="false">
+      <a id="lookup():org.eligosource.eventsourced.core.EventsourcingExtension.type"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">lookup</span><span class="params">()</span><span class="result">: org.eligosource.eventsourced.core.EventsourcingExtension.type</span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.EventsourcingExtension" class="extype" href="">EventsourcingExtension</a> → ExtensionIdProvider</dd></dl></div>
     </li><li visbl="pub" name="scala.AnyRef#ne" data-isabs="false">
       <a id="ne(AnyRef):Boolean"></a>
       <h4 class="signature">
@@ -377,7 +402,11 @@ will be completed with an <code>Ack</code> once the message has been written to 
         </div>
 
         <div id="inheritedMembers">
-        <div name="scala.AnyRef" class="parent">
+        <div name="akka.actor.ExtensionIdProvider" class="parent">
+              <h3>Inherited from <span name="akka.actor.ExtensionIdProvider" class="extype">ExtensionIdProvider</span></h3>
+            </div><div name="akka.actor.ExtensionId" class="parent">
+              <h3>Inherited from <span name="akka.actor.ExtensionId" class="extype">ExtensionId</span>[<a name="org.eligosource.eventsourced.core.EventsourcingExtension" class="extype" href="EventsourcingExtension.html">EventsourcingExtension</a>]</h3>
+            </div><div name="scala.AnyRef" class="parent">
               <h3>Inherited from AnyRef</h3>
             </div><div name="scala.Any" class="parent">
               <h3>Inherited from <span name="scala.Any" class="extype">Any</span></h3>

@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
         <head>
-          <title>org.eligosource.eventsourced.core.ReliableChannelConf</title>
+          <title>org.eligosource.eventsourced.core.RedeliveryPolicy</title>
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link type="text/css" media="screen" rel="stylesheet" href="../../../../lib/template.css" />
@@ -14,9 +14,9 @@
         </head>
         <body onload="sh_highlightDocument('../lib/', '.min.js');" class="type">
       <div id="definition">
-        <a title="Go to companion" href="ReliableChannelConf$.html"><img src="../../../../lib/class_to_object_big.png" /></a>
+        <a title="Go to companion" href="RedeliveryPolicy$.html"><img src="../../../../lib/class_to_object_big.png" /></a>
         <p id="owner"><a name="org" class="extype" href="../../../package.html">org</a>.<a name="org.eligosource" class="extype" href="../../package.html">eligosource</a>.<a name="org.eligosource.eventsourced" class="extype" href="../package.html">eventsourced</a>.<a name="org.eligosource.eventsourced.core" class="extype" href="package.html">core</a></p>
-        <h1><a title="Go to companion" href="ReliableChannelConf$.html">ReliableChannelConf</a></h1>
+        <h1><a title="Go to companion" href="RedeliveryPolicy$.html">RedeliveryPolicy</a></h1>
       </div>
 
       <h4 class="signature" id="signature">
@@ -25,7 +25,7 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">ReliableChannelConf</span><span class="params">(<span name="recoveryDelay">recoveryDelay: <span name="akka.util.Duration" class="extype">Duration</span></span>, <span name="retryDelay">retryDelay: <span name="akka.util.Duration" class="extype">Duration</span></span>, <span name="retryMax">retryMax: <span name="scala.Int" class="extype">Int</span></span>)</span><span class="result"> extends <span name="scala.Product" class="extype">Product</span> with <span name="scala.Serializable" class="extype">Serializable</span></span>
+        <span class="name">RedeliveryPolicy</span><span class="params">(<span name="recoveryDelay">recoveryDelay: <span name="akka.util.Duration" class="extype">Duration</span></span>, <span name="retryDelay">retryDelay: <span name="akka.util.Duration" class="extype">Duration</span></span>, <span name="retryMax">retryMax: <span name="scala.Int" class="extype">Int</span></span>)</span><span class="result"> extends <span name="scala.Product" class="extype">Product</span> with <span name="scala.Serializable" class="extype">Serializable</span></span>
       </span>
       </h4>
       
@@ -48,7 +48,7 @@
               <span class="filtertype">Inherited</span>
               <ol><li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li></ol>
-              <ol id="linearization"><li name="org.eligosource.eventsourced.core.ReliableChannelConf" class="in"><span>ReliableChannelConf</span></li><li name="scala.Serializable" class="in"><span>Serializable</span></li><li name="java.io.Serializable" class="in"><span>Serializable</span></li><li name="scala.Product" class="in"><span>Product</span></li><li name="scala.Equals" class="in"><span>Equals</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
+              <ol id="linearization"><li name="org.eligosource.eventsourced.core.RedeliveryPolicy" class="in"><span>RedeliveryPolicy</span></li><li name="scala.Serializable" class="in"><span>Serializable</span></li><li name="java.io.Serializable" class="in"><span>Serializable</span></li><li name="scala.Product" class="in"><span>Product</span></li><li name="scala.Equals" class="in"><span>Equals</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
             </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -60,15 +60,15 @@
         <div id="allMembers">
         <div class="members" id="constructors">
               <h3>Instance Constructors</h3>
-              <ol><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelConf#this" data-isabs="false">
-      <a id="this:ReliableChannelConf"></a>
+              <ol><li visbl="pub" name="org.eligosource.eventsourced.core.RedeliveryPolicy#this" data-isabs="false">
+      <a id="this:RedeliveryPolicy"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">ReliableChannelConf</span><span class="params">(<span name="recoveryDelay">recoveryDelay: <span name="akka.util.Duration" class="extype">Duration</span></span>, <span name="retryDelay">retryDelay: <span name="akka.util.Duration" class="extype">Duration</span></span>, <span name="retryMax">retryMax: <span name="scala.Int" class="extype">Int</span></span>)</span>
+        <span class="name">RedeliveryPolicy</span><span class="params">(<span name="recoveryDelay">recoveryDelay: <span name="akka.util.Duration" class="extype">Duration</span></span>, <span name="retryDelay">retryDelay: <span name="akka.util.Duration" class="extype">Duration</span></span>, <span name="retryMax">retryMax: <span name="scala.Int" class="extype">Int</span></span>)</span>
       </span>
       </h4>
       <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">recoveryDelay</dt><dd class="cmt"><p>Delay for re-starting a reliable channel that has been stopped
@@ -155,7 +155,7 @@
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelConf#canEqual" data-isabs="false">
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.RedeliveryPolicy#canEqual" data-isabs="false">
       <a id="canEqual(Any):Boolean"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -166,7 +166,7 @@
         <span class="name">canEqual</span><span class="params">(<span name="arg0">arg0: <span name="scala.Any" class="extype">Any</span></span>)</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.ReliableChannelConf" class="extype" href="">ReliableChannelConf</a> → Equals</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.RedeliveryPolicy" class="extype" href="">RedeliveryPolicy</a> → Equals</dd></dl></div>
     </li><li visbl="prt" name="scala.AnyRef#clone" data-isabs="false">
       <a id="clone():AnyRef"></a>
       <h4 class="signature">
@@ -194,7 +194,7 @@
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelConf#equals" data-isabs="false">
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.RedeliveryPolicy#equals" data-isabs="false">
       <a id="equals(Any):Boolean"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -205,7 +205,7 @@
         <span class="name">equals</span><span class="params">(<span name="arg0">arg0: <span name="scala.Any" class="extype">Any</span></span>)</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.ReliableChannelConf" class="extype" href="">ReliableChannelConf</a> → Equals → AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.RedeliveryPolicy" class="extype" href="">RedeliveryPolicy</a> → Equals → AnyRef → Any</dd></dl></div>
     </li><li visbl="prt" name="scala.AnyRef#finalize" data-isabs="false">
       <a id="finalize():Unit"></a>
       <h4 class="signature">
@@ -233,7 +233,7 @@
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelConf#hashCode" data-isabs="false">
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.RedeliveryPolicy#hashCode" data-isabs="false">
       <a id="hashCode():Int"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -244,7 +244,7 @@
         <span class="name">hashCode</span><span class="params">()</span><span class="result">: <span name="scala.Int" class="extype">Int</span></span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.ReliableChannelConf" class="extype" href="">ReliableChannelConf</a> → AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.RedeliveryPolicy" class="extype" href="">RedeliveryPolicy</a> → AnyRef → Any</dd></dl></div>
     </li><li visbl="pub" name="scala.Any#isInstanceOf" data-isabs="false">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <h4 class="signature">
@@ -293,7 +293,7 @@
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelConf#productArity" data-isabs="false">
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.RedeliveryPolicy#productArity" data-isabs="false">
       <a id="productArity:Int"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -304,8 +304,8 @@
         <span class="name">productArity</span><span class="result">: <span name="scala.Int" class="extype">Int</span></span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.ReliableChannelConf" class="extype" href="">ReliableChannelConf</a> → Product</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelConf#productElement" data-isabs="false">
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.RedeliveryPolicy" class="extype" href="">RedeliveryPolicy</a> → Product</dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.RedeliveryPolicy#productElement" data-isabs="false">
       <a id="productElement(Int):Any"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -316,7 +316,7 @@
         <span class="name">productElement</span><span class="params">(<span name="arg0">arg0: <span name="scala.Int" class="extype">Int</span></span>)</span><span class="result">: <span name="scala.Any" class="extype">Any</span></span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.ReliableChannelConf" class="extype" href="">ReliableChannelConf</a> → Product</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.RedeliveryPolicy" class="extype" href="">RedeliveryPolicy</a> → Product</dd></dl></div>
     </li><li visbl="pub" name="scala.Product#productIterator" data-isabs="false">
       <a id="productIterator:Iterator[Any]"></a>
       <h4 class="signature">
@@ -329,7 +329,7 @@
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Product</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelConf#productPrefix" data-isabs="false">
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.RedeliveryPolicy#productPrefix" data-isabs="false">
       <a id="productPrefix:String"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -340,8 +340,8 @@
         <span class="name">productPrefix</span><span class="result">: <span name="java.lang.String" class="extype">String</span></span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.ReliableChannelConf" class="extype" href="">ReliableChannelConf</a> → Product</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelConf#recoveryDelay" data-isabs="false">
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.RedeliveryPolicy" class="extype" href="">RedeliveryPolicy</a> → Product</dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.RedeliveryPolicy#recoveryDelay" data-isabs="false">
       <a id="recoveryDelay:Duration"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -354,7 +354,7 @@
       </h4>
       <p class="shortcomment cmt">Delay for re-starting a reliable channel that has been stopped
        after having reached the maximum number of re-delivery attempts.</p>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelConf#retryDelay" data-isabs="false">
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.RedeliveryPolicy#retryDelay" data-isabs="false">
       <a id="retryDelay:Duration"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -366,7 +366,7 @@
       </span>
       </h4>
       <p class="shortcomment cmt">Delay between re-delivery attempts.</p>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelConf#retryMax" data-isabs="false">
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.RedeliveryPolicy#retryMax" data-isabs="false">
       <a id="retryMax:Int"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -390,7 +390,7 @@
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelConf#toString" data-isabs="false">
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.RedeliveryPolicy#toString" data-isabs="false">
       <a id="toString():String"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -401,7 +401,7 @@
         <span class="name">toString</span><span class="params">()</span><span class="result">: String</span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.ReliableChannelConf" class="extype" href="">ReliableChannelConf</a> → AnyRef → Any</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.RedeliveryPolicy" class="extype" href="">RedeliveryPolicy</a> → AnyRef → Any</dd></dl></div>
     </li><li visbl="pub" name="scala.AnyRef#wait" data-isabs="false">
       <a id="wait():Unit"></a>
       <h4 class="signature">

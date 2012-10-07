@@ -2,46 +2,40 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
         <head>
-          <title>akka.actor.ReceiverBehavior</title>
+          <title>org.eligosource.eventsourced.core.EventsourcingExtension</title>
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
-      <link type="text/css" media="screen" rel="stylesheet" href="../../lib/template.css" />
-      <script type="text/javascript" src="../../lib/jquery.js"></script>
-      <script type="text/javascript" src="../../lib/jquery-ui.js"></script>
-      <script type="text/javascript" src="../../lib/template.js"></script>
-      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
+      <link type="text/css" media="screen" rel="stylesheet" href="../../../../lib/template.css" />
+      <script type="text/javascript" src="../../../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
     
         </head>
         <body onload="sh_highlightDocument('../lib/', '.min.js');" class="type">
       <div id="definition">
-        <img src="../../lib/trait_big.png" />
-        <p id="owner"><a name="akka" class="extype" href="../package.html">akka</a>.<a name="akka.actor" class="extype" href="package.html">actor</a></p>
-        <h1>ReceiverBehavior</h1>
+        <a title="Go to companion" href="EventsourcingExtension$.html"><img src="../../../../lib/class_to_object_big.png" /></a>
+        <p id="owner"><a name="org" class="extype" href="../../../package.html">org</a>.<a name="org.eligosource" class="extype" href="../../package.html">eligosource</a>.<a name="org.eligosource.eventsourced" class="extype" href="../package.html">eventsourced</a>.<a name="org.eligosource.eventsourced.core" class="extype" href="package.html">core</a></p>
+        <h1><a title="Go to companion" href="EventsourcingExtension$.html">EventsourcingExtension</a></h1>
       </div>
 
       <h4 class="signature" id="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">trait</span>
+        <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">ReceiverBehavior</span><span class="result"> extends <span name="akka.actor.Actor" class="extype">Actor</span></span>
+        <span class="name">EventsourcingExtension</span><span class="result"> extends <span name="akka.actor.Extension" class="extype">Extension</span></span>
       </span>
       </h4>
       
-      <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Allow actors with a stackable <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="../../org/eligosource/eventsourced/core/Receiver.html">Receiver</a>
-modification to change their behavior with <code>context.become()</code> and <code>context.unbecome()</code>
-without loosing the additional <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="../../org/eligosource/eventsourced/core/Receiver.html">Receiver</a> behavior.
-This also holds for sub-traits of <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="../../org/eligosource/eventsourced/core/Receiver.html">Receiver</a>.
-</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="../../org/eligosource/eventsourced/core/Eventsourced.html">Eventsourced</a>
-     <a name="org.eligosource.eventsourced.core.Responder" class="extype" href="../../org/eligosource/eventsourced/core/Responder.html">Responder</a>
-     <a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="../../org/eligosource/eventsourced/core/Emitter.html">Emitter</a>
-</p></span></dd></dl><div class="toggleContainer block">
+      <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Event-sourcing extension for Akka. Used by applications to create and register
+<a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processors and event message
+<a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>s and to recover them from journaled
+event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>s.
+</p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span name="akka.actor.Actor" class="extype">Actor</span>, AnyRef, <span name="scala.Any" class="extype">Any</span></div>
-        </div><div class="toggleContainer block">
-          <span class="toggle">Known Subclasses</span>
-          <div class="subClasses hiddenContent"><a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="../../org/eligosource/eventsourced/core/Emitter.html">Emitter</a>, <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="../../org/eligosource/eventsourced/core/Eventsourced.html">Eventsourced</a>, <a name="org.eligosource.eventsourced.core.ForwardContext" class="extype" href="../../org/eligosource/eventsourced/core/ForwardContext.html">ForwardContext</a>, <a name="org.eligosource.eventsourced.core.ForwardMessage" class="extype" href="../../org/eligosource/eventsourced/core/ForwardMessage.html">ForwardMessage</a>, <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="../../org/eligosource/eventsourced/core/Receiver.html">Receiver</a>, <a name="org.eligosource.eventsourced.core.Responder" class="extype" href="../../org/eligosource/eventsourced/core/Responder.html">Responder</a></div>
+          <div class="superTypes hiddenContent"><span name="akka.actor.Extension" class="extype">Extension</span>, AnyRef, <span name="scala.Any" class="extype">Any</span></div>
         </div></div>
     
 
@@ -55,7 +49,7 @@ This also holds for sub-traits of <a name="org.eligosource.eventsourced.core.Rec
               <span class="filtertype">Inherited</span>
               <ol><li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li></ol>
-              <ol id="linearization"><li name="akka.actor.ReceiverBehavior" class="in"><span>ReceiverBehavior</span></li><li name="akka.actor.Actor" class="in"><span>Actor</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
+              <ol id="linearization"><li name="org.eligosource.eventsourced.core.EventsourcingExtension" class="in"><span>EventsourcingExtension</span></li><li name="akka.actor.Extension" class="in"><span>Extension</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
             </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -65,24 +59,25 @@ This also holds for sub-traits of <a name="org.eligosource.eventsourced.core.Rec
 
       <div id="template">
         <div id="allMembers">
-        
-
-        <div class="types members" id="types">
-              <h3>Type Members</h3>
-              <ol><li visbl="pub" name="akka.actor.Actor#Receive" data-isabs="false">
-      <a id="Receive:Receive"></a>
+        <div class="members" id="constructors">
+              <h3>Instance Constructors</h3>
+              <ol><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#this" data-isabs="false">
+      <a id="this:EventsourcingExtension"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">type</span>
+        <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">Receive</span><span class="result"> = <span name="scala.PartialFunction" class="extype">PartialFunction</span>[<span name="scala.Any" class="extype">Any</span>, <span name="scala.Unit" class="extype">Unit</span>]</span>
+        <span class="name">EventsourcingExtension</span><span class="params">(<span name="system">system: <span name="akka.actor.ActorSystem" class="extype">ActorSystem</span></span>)</span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">system</dt><dd class="cmt"><p>actor system this extension is associated with.
+</p></dd></dl></div>
     </li></ol>
             </div>
+
+        
 
         
 
@@ -160,6 +155,37 @@ This also holds for sub-traits of <a name="org.eligosource.eventsourced.core.Rec
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#channelOf" data-isabs="false">
+      <a id="channelOf(ChannelProps)(ActorRefFactory):ActorRef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">channelOf</span><span class="params">(<span name="props">props: <a name="org.eligosource.eventsourced.core.ChannelProps" class="extype" href="ChannelProps.html">ChannelProps</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="actorRefFactory">actorRefFactory: <span name="akka.actor.ActorRefFactory" class="extype">ActorRefFactory</span></span>)</span><span class="result">: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Creates and registers a <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates and registers a <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>. The channel is
+registered under the name given by <code>props.name</code>.
+</p></div><dl class="paramcmts block"><dt class="param">props</dt><dd class="cmt"><p>channel configuration object.</p></dd><dt class="param">actorRefFactory</dt><dd class="cmt"><p><a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a> ref factory.</p></dd><dt>returns</dt><dd class="cmt"><p>a channel ref.
+</p></dd></dl><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a name="org.eligosource.eventsourced.core.DefaultChannelProps" class="extype" href="DefaultChannelProps.html">DefaultChannelProps</a>
+     <a name="org.eligosource.eventsourced.core.ReliableChannelProps" class="extype" href="ReliableChannelProps.html">ReliableChannelProps</a>
+</p></span></dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#channels" data-isabs="false">
+      <a id="channels:Map[String, ActorRef]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">channels</span><span class="result">: Map[String, <span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Map of registered <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>s.</p><div class="fullcomment"><div class="comment cmt"><p>Map of registered <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>s. Mapping key is
+the channel name.
+</p></div></div>
     </li><li visbl="prt" name="scala.AnyRef#clone" data-isabs="false">
       <a id="clone():AnyRef"></a>
       <h4 class="signature">
@@ -171,22 +197,34 @@ This also holds for sub-traits of <a name="org.eligosource.eventsourced.core.Rec
         <span class="name">clone</span><span class="params">()</span><span class="result">: AnyRef</span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="java.lang" class="extype" href="../../java/lang/package.html">lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="java.lang" class="extype" href="../../../../java/lang/package.html">lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@throws</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li visbl="prt" name="akka.actor.Actor#context" data-isabs="false">
-      <a id="context:ActorContext"></a>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#deliver" data-isabs="false">
+      <a id="deliver(String):Unit"></a>
       <h4 class="signature">
       <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
+        <span class="modifier"></span>
+        <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">context</span><span class="result">: <span name="akka.actor.ActorContext" class="extype">ActorContext</span></span>
+        <span class="name">deliver</span><span class="params">(<span name="channelName">channelName: String</span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="akka" class="extype" href="../package.html">akka</a>] </dd><dt>Definition Classes</dt><dd>Actor</dd></dl></div>
+      <p class="shortcomment cmt">Enables the channel registered under <code>channelName</code> and starts delivery of pending messages.</p>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#deliver" data-isabs="false">
+      <a id="deliver():Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">deliver</span><span class="params">()</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Enables all registered channels and starts delivery of pending messages.</p>
     </li><li visbl="pub" name="scala.AnyRef#eq" data-isabs="false">
       <a id="eq(AnyRef):Boolean"></a>
       <h4 class="signature">
@@ -222,7 +260,7 @@ This also holds for sub-traits of <a name="org.eligosource.eventsourced.core.Rec
         <span class="name">finalize</span><span class="params">()</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="java.lang" class="extype" href="../../java/lang/package.html">lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="java.lang" class="extype" href="../../../../java/lang/package.html">lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
                 <span class="name">@throws</span><span class="args">()</span>
               
         </dd></dl></div>
@@ -262,6 +300,18 @@ This also holds for sub-traits of <a name="org.eligosource.eventsourced.core.Rec
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#journal" data-isabs="false">
+      <a id="journal:ActorRef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">journal</span><span class="result">: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Journal for this extension.</p>
     </li><li visbl="pub" name="scala.AnyRef#ne" data-isabs="false">
       <a id="ne(AnyRef):Boolean"></a>
       <h4 class="signature">
@@ -298,102 +348,86 @@ This also holds for sub-traits of <a name="org.eligosource.eventsourced.core.Rec
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li visbl="pub" name="akka.actor.Actor#postRestart" data-isabs="false">
-      <a id="postRestart(Throwable):Unit"></a>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#processorOf" data-isabs="false">
+      <a id="processorOf(ProcessorProps):ActorRef"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">postRestart</span><span class="params">(<span name="reason">reason: Throwable</span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+        <span class="name">processorOf</span><span class="params">(<span name="props">props: <a name="org.eligosource.eventsourced.core.ProcessorProps" class="extype" href="ProcessorProps.html">ProcessorProps</a></span>)</span><span class="result">: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
-    </li><li visbl="pub" name="akka.actor.Actor#postStop" data-isabs="false">
-      <a id="postStop():Unit"></a>
+      <p class="shortcomment cmt">Registers an <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processor.</p><div class="fullcomment"><div class="comment cmt"><p>Registers an <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processor.
+</p></div><dl class="paramcmts block"><dt class="param">props</dt><dd class="cmt"><p>processor configuration object</p></dd><dt>returns</dt><dd class="cmt"><p>a processor ref
+</p></dd></dl><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a name="org.eligosource.eventsourced.core.ProcessorProps" class="extype" href="ProcessorProps.html">ProcessorProps</a>
+</p></span></dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#processors" data-isabs="false">
+      <a id="processors:Map[Int, ActorRef]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">postStop</span><span class="params">()</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+        <span class="name">processors</span><span class="result">: Map[<span name="scala.Int" class="extype">Int</span>, <span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
-    </li><li visbl="pub" name="akka.actor.Actor#preRestart" data-isabs="false">
-      <a id="preRestart(Throwable,Option[Any]):Unit"></a>
+      <p class="shortcomment cmt">Map of registered <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processors.</p><div class="fullcomment"><div class="comment cmt"><p>Map of registered <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processors.
+Mapping key is the processor id.
+</p></div></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#recover" data-isabs="false">
+      <a id="recover((Int) ⇒ Option[Long]):Unit"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">preRestart</span><span class="params">(<span name="reason">reason: Throwable</span>, <span name="message">message: <span name="scala.Option" class="extype">Option</span>[<span name="scala.Any" class="extype">Any</span>]</span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+        <span class="name">recover</span><span class="params">(<span name="f">f: (<span name="scala.Int" class="extype">Int</span>) ⇒ <span name="scala.Option" class="extype">Option</span>[<span name="scala.Long" class="extype">Long</span>]</span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
-    </li><li visbl="pub" name="akka.actor.Actor#preStart" data-isabs="false">
-      <a id="preStart():Unit"></a>
+      <p class="shortcomment cmt">Recovers selected processors and all channels registered at this extension by first
+calling <code>replay(f)</code> and then <code>deliver()</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Recovers selected processors and all channels registered at this extension by first
+calling <code>replay(f)</code> and then <code>deliver()</code>.
+</p></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>function called for each processor id. If the function returns <code>None</code>
+       no message replay will be done for that processor. If it returns <code>Some(snr)</code>
+       message replay will start from sequence number <code>snr</code> for that processor.
+</p></dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#recover" data-isabs="false">
+      <a id="recover():Unit"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">preStart</span><span class="params">()</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+        <span class="name">recover</span><span class="params">()</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
-    </li><li visbl="pub" name="akka.actor.ReceiverBehavior#receive" data-isabs="false">
-      <a id="receive:PartialFunction[Any, Unit]"></a>
+      <p class="shortcomment cmt">Recovers all processors and channels registered at this extension by first
+calling <code>replay(_ =&gt; Some(0))</code> and then <code>deliver()</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Recovers all processors and channels registered at this extension by first
+calling <code>replay(_ =&gt; Some(0))</code> and then <code>deliver()</code>. Replay is done with no
+lower bound (i.e. with all messages in the journal) for all processors of
+this context.
+</p></div></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#replay" data-isabs="false">
+      <a id="replay((Int) ⇒ Option[Long]):Unit"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">receive</span><span class="result">: <span name="scala.PartialFunction" class="extype">PartialFunction</span>[<span name="scala.Any" class="extype">Any</span>, <span name="scala.Unit" class="extype">Unit</span>]</span>
+        <span class="name">replay</span><span class="params">(<span name="f">f: (<span name="scala.Int" class="extype">Int</span>) ⇒ <span name="scala.Option" class="extype">Option</span>[<span name="scala.Long" class="extype">Long</span>]</span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="akka.actor.ReceiverBehavior" class="extype" href="">ReceiverBehavior</a> → Actor</dd></dl></div>
-    </li><li visbl="pub" name="akka.actor.Actor#self" data-isabs="false">
-      <a id="self:ActorRef"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit final </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">self</span><span class="result">: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
-    </li><li visbl="pub" name="akka.actor.Actor#sender" data-isabs="false">
-      <a id="sender:ActorRef"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">sender</span><span class="result">: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
-    </li><li visbl="pub" name="akka.actor.Actor#supervisorStrategy" data-isabs="false">
-      <a id="supervisorStrategy():SupervisorStrategy"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">supervisorStrategy</span><span class="params">()</span><span class="result">: <span name="akka.actor.SupervisorStrategy" class="extype">SupervisorStrategy</span></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
+      <p class="shortcomment cmt">Replays input messages to selected processors.</p><div class="fullcomment"><div class="comment cmt"><p>Replays input messages to selected processors.
+</p></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>function called for each processor id. If the function returns <code>None</code>
+       no message replay will be done for that processor. If it returns <code>Some(snr)</code>
+       message replay will start from sequence number <code>snr</code> for that processor.
+</p></dd></dl></div>
     </li><li visbl="pub" name="scala.AnyRef#synchronized" data-isabs="false">
       <a id="synchronized[T0](⇒ T0):T0"></a>
       <h4 class="signature">
@@ -418,18 +452,6 @@ This also holds for sub-traits of <a name="org.eligosource.eventsourced.core.Rec
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li visbl="pub" name="akka.actor.Actor#unhandled" data-isabs="false">
-      <a id="unhandled(Any):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">unhandled</span><span class="params">(<span name="message">message: <span name="scala.Any" class="extype">Any</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
     </li><li visbl="pub" name="scala.AnyRef#wait" data-isabs="false">
       <a id="wait():Unit"></a>
       <h4 class="signature">
@@ -482,8 +504,8 @@ This also holds for sub-traits of <a name="org.eligosource.eventsourced.core.Rec
         </div>
 
         <div id="inheritedMembers">
-        <div name="akka.actor.Actor" class="parent">
-              <h3>Inherited from <span name="akka.actor.Actor" class="extype">Actor</span></h3>
+        <div name="akka.actor.Extension" class="parent">
+              <h3>Inherited from <span name="akka.actor.Extension" class="extype">Extension</span></h3>
             </div><div name="scala.AnyRef" class="parent">
               <h3>Inherited from AnyRef</h3>
             </div><div name="scala.Any" class="parent">

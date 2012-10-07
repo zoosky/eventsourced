@@ -31,8 +31,9 @@
       
       <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>A message to communicate application events. Application events are not interpreted
 by the library and can have any type.</p><p>Messages sent to an <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processor
-are called <i>input</i> messages. Processors process input messages by deriving zero
-or more <i>output</i> messages from it that the processor <i>emits</i> to a channel. When
+are called <i>input</i> messages. Processors process input messages (e.g. by modifying
+internal state) and optionally <i>emit</i> zero or more <i>output</i> messages to one or
+more channels (where output messages are <i>derived</i> from an input message). When
 a channel successfully delivered (or stored, in case of a reliable channel) the
 emitted output message(s), an acknowledgement (with a reference to the input message)
 is written to the journal. During a replay (recovery), output messages that are derived

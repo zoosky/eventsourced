@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
         <head>
-          <title>org.eligosource.eventsourced.core.ReliableChannelConf</title>
+          <title>org.eligosource.eventsourced.core.TargetRef</title>
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link type="text/css" media="screen" rel="stylesheet" href="../../../../lib/template.css" />
@@ -12,26 +12,28 @@
       <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
     
         </head>
-        <body onload="sh_highlightDocument('../lib/', '.min.js');" class="value">
+        <body onload="sh_highlightDocument('../lib/', '.min.js');" class="type">
       <div id="definition">
-        <a title="Go to companion" href="ReliableChannelConf.html"><img src="../../../../lib/object_to_class_big.png" /></a>
+        <img src="../../../../lib/class_big.png" />
         <p id="owner"><a name="org" class="extype" href="../../../package.html">org</a>.<a name="org.eligosource" class="extype" href="../../package.html">eligosource</a>.<a name="org.eligosource.eventsourced" class="extype" href="../package.html">eventsourced</a>.<a name="org.eligosource.eventsourced.core" class="extype" href="package.html">core</a></p>
-        <h1><a title="Go to companion" href="ReliableChannelConf.html">ReliableChannelConf</a></h1>
+        <h1>TargetRef</h1>
       </div>
 
       <h4 class="signature" id="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">object</span>
+        <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <span class="name">ReliableChannelConf</span><span class="result"> extends <span name="scala.Serializable" class="extype">Serializable</span></span>
+        <span class="name">TargetRef</span><span class="result"> extends AnyRef</span>
       </span>
       </h4>
       
-      <div class="fullcommenttop" id="comment"><div class="toggleContainer block">
+      <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Pimps an actor ref with special-purpose event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>
+sending methods.
+</p></div><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span name="scala.Serializable" class="extype">Serializable</span>, <span name="java.io.Serializable" class="extype">Serializable</span>, AnyRef, <span name="scala.Any" class="extype">Any</span></div>
+          <div class="superTypes hiddenContent">AnyRef, <span name="scala.Any" class="extype">Any</span></div>
         </div></div>
     
 
@@ -45,7 +47,7 @@
               <span class="filtertype">Inherited</span>
               <ol><li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li></ol>
-              <ol id="linearization"><li name="org.eligosource.eventsourced.core.ReliableChannelConf" class="in"><span>ReliableChannelConf</span></li><li name="scala.Serializable" class="in"><span>Serializable</span></li><li name="java.io.Serializable" class="in"><span>Serializable</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
+              <ol id="linearization"><li name="org.eligosource.eventsourced.core.TargetRef" class="in"><span>TargetRef</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
             </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -55,7 +57,23 @@
 
       <div id="template">
         <div id="allMembers">
-        
+        <div class="members" id="constructors">
+              <h3>Instance Constructors</h3>
+              <ol><li visbl="pub" name="org.eligosource.eventsourced.core.TargetRef#this" data-isabs="false">
+      <a id="this:TargetRef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">new</span>
+      </span>
+      <span class="symbol">
+        <span class="name">TargetRef</span><span class="params">(<span name="receiver">receiver: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>)</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">receiver</dt><dd class="cmt"><p>receiver actor reference.
+</p></dd></dl></div>
+    </li></ol>
+            </div>
 
         
 
@@ -123,54 +141,31 @@
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelConf#DefaultRecoveryDelay" data-isabs="false">
-      <a id="DefaultRecoveryDelay:FiniteDuration"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">DefaultRecoveryDelay</span><span class="result">: <span name="akka.util.FiniteDuration" class="extype">FiniteDuration</span></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Default recovery delay: 5 seconds</p>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelConf#DefaultRetryDelay" data-isabs="false">
-      <a id="DefaultRetryDelay:FiniteDuration"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">DefaultRetryDelay</span><span class="result">: <span name="akka.util.FiniteDuration" class="extype">FiniteDuration</span></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Default re-delivery delay: 1 second</p>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelConf#DefaultRetryMax" data-isabs="false">
-      <a id="DefaultRetryMax:Int"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">DefaultRetryMax</span><span class="result">: <span name="scala.Int" class="extype">Int</span></span>
-      </span>
-      </h4>
-      
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelConf#apply" data-isabs="false">
-      <a id="apply():ReliableChannelConf"></a>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.TargetRef#??" data-isabs="false">
+      <a id="??(Message)(Timeout,EventsourcingExtension):Future[Any]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="params">()</span><span class="result">: <a name="org.eligosource.eventsourced.core.ReliableChannelConf" class="extype" href="ReliableChannelConf.html">ReliableChannelConf</a></span>
+        <span class="name" title="gt4s: $qmark$qmark">??</span><span class="params">(<span name="message">message: <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="timeout">timeout: <span name="akka.util.Timeout" class="extype">Timeout</span></span>, <span name="extension">extension: <a name="org.eligosource.eventsourced.core.EventsourcingExtension" class="extype" href="EventsourcingExtension.html">EventsourcingExtension</a></span>)</span><span class="result">: <span name="akka.dispatch.Future" class="extype">Future</span>[<span name="scala.Any" class="extype">Any</span>]</span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Returns a <a name="org.eligosource.eventsourced.core.ReliableChannelConf" class="extype" href="ReliableChannelConf.html">ReliableChannelConf</a> with default settings.</p>
+      <p class="shortcomment cmt">Sends an event <code>message</code> to <code>receiver</code> where the <code>receiver</code> will receive
+the sent <code>message</code> with a defined <code>sender</code> field that represents the returned
+future.</p><div class="fullcomment"><div class="comment cmt"><p>Sends an event <code>message</code> to <code>receiver</code> where the <code>receiver</code> will receive
+the sent <code>message</code> with a defined <code>sender</code> field that represents the returned
+future.</p><p>Actors that are modified with <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a>
+or any of its sub-traits can obtain the <code>sender</code> from the current event message
+via the <code>Receiver.initiator</code> method. Sending a message to <code>initiator</code> (via
+<code>initiator ! msg</code>) will complete the returned future. In contrast, when using
+Akka's <code>?</code> (ask) to send an event message, the future will be completed with an
+<code>Ack</code> which is a reply from <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a> to
+<code>Actor.sender</code>.</p><p>Completion of the future also works when a receiver further sends the received
+<code>message</code> to other receivers, either directly or via channels.
+</p></div><dl class="paramcmts block"><dt class="param">message</dt><dd class="cmt"><p>event message.</p></dd><dt class="param">timeout</dt><dd class="cmt"><p>reply timeout.
+</p></dd></dl></div>
     </li><li visbl="pub" name="scala.Any#asInstanceOf" data-isabs="false">
       <a id="asInstanceOf[T0]:T0"></a>
       <h4 class="signature">
@@ -309,18 +304,6 @@
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li visbl="prt" name="org.eligosource.eventsourced.core.ReliableChannelConf#readResolve" data-isabs="false">
-      <a id="readResolve():AnyRef"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">readResolve</span><span class="params">()</span><span class="result">: AnyRef</span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
     </li><li visbl="pub" name="scala.AnyRef#synchronized" data-isabs="false">
       <a id="synchronized[T0](⇒ T0):T0"></a>
       <h4 class="signature">
@@ -397,11 +380,7 @@
         </div>
 
         <div id="inheritedMembers">
-        <div name="scala.Serializable" class="parent">
-              <h3>Inherited from <span name="scala.Serializable" class="extype">Serializable</span></h3>
-            </div><div name="java.io.Serializable" class="parent">
-              <h3>Inherited from <span name="java.io.Serializable" class="extype">Serializable</span></h3>
-            </div><div name="scala.AnyRef" class="parent">
+        <div name="scala.AnyRef" class="parent">
               <h3>Inherited from AnyRef</h3>
             </div><div name="scala.Any" class="parent">
               <h3>Inherited from <span name="scala.Any" class="extype">Any</span></h3>

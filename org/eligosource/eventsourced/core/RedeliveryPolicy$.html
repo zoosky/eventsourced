@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
         <head>
-          <title>org.eligosource.eventsourced.core.Decorator</title>
+          <title>org.eligosource.eventsourced.core.RedeliveryPolicy</title>
           <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
           
       <link type="text/css" media="screen" rel="stylesheet" href="../../../../lib/template.css" />
@@ -12,32 +12,26 @@
       <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
     
         </head>
-        <body onload="sh_highlightDocument('../lib/', '.min.js');" class="type">
+        <body onload="sh_highlightDocument('../lib/', '.min.js');" class="value">
       <div id="definition">
-        <a title="Go to companion" href="Decorator$.html"><img src="../../../../lib/class_to_object_big.png" /></a>
+        <a title="Go to companion" href="RedeliveryPolicy.html"><img src="../../../../lib/object_to_class_big.png" /></a>
         <p id="owner"><a name="org" class="extype" href="../../../package.html">org</a>.<a name="org.eligosource" class="extype" href="../../package.html">eligosource</a>.<a name="org.eligosource.eventsourced" class="extype" href="../package.html">eventsourced</a>.<a name="org.eligosource.eventsourced.core" class="extype" href="package.html">core</a></p>
-        <h1><a title="Go to companion" href="Decorator$.html">Decorator</a></h1>
+        <h1><a title="Go to companion" href="RedeliveryPolicy.html">RedeliveryPolicy</a></h1>
       </div>
 
       <h4 class="signature" id="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">class</span>
+        <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <span class="name">Decorator</span><span class="result"> extends <span name="akka.actor.Actor" class="extype">Actor</span></span>
+        <span class="name">RedeliveryPolicy</span><span class="result"> extends <span name="scala.Serializable" class="extype">Serializable</span></span>
       </span>
       </h4>
       
-      <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>An <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> decorator for actors that
-cannot be modified with <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> (such
-as Akka FSMs since they implement <code>Actor.receive</code> as <code>final</code>).</p><p>A <code>Decorator</code> extracts events from received event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>s
-and sends them to the decorated actor. The decorated actor must reply with <code>Emit(channelName, event)</code>
-messages to instruct the decorator to emit a <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a> containing
-<code>event</code> to a named channel.</p><p>Experimental.
-</p></div><dl class="attributes block"> <dt>Self Type</dt><dd><a name="org.eligosource.eventsourced.core.Decorator" class="extype" href="">Decorator</a> with <a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emitter.html">Emitter</a> with <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a></dd></dl><div class="toggleContainer block">
+      <div class="fullcommenttop" id="comment"><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><span name="akka.actor.Actor" class="extype">Actor</span>, AnyRef, <span name="scala.Any" class="extype">Any</span></div>
+          <div class="superTypes hiddenContent"><span name="scala.Serializable" class="extype">Serializable</span>, <span name="java.io.Serializable" class="extype">Serializable</span>, AnyRef, <span name="scala.Any" class="extype">Any</span></div>
         </div></div>
     
 
@@ -51,7 +45,7 @@ messages to instruct the decorator to emit a <a name="org.eligosource.eventsourc
               <span class="filtertype">Inherited</span>
               <ol><li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li></ol>
-              <ol id="linearization"><li name="org.eligosource.eventsourced.core.Decorator" class="in"><span>Decorator</span></li><li name="akka.actor.Actor" class="in"><span>Actor</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
+              <ol id="linearization"><li name="org.eligosource.eventsourced.core.RedeliveryPolicy" class="in"><span>RedeliveryPolicy</span></li><li name="scala.Serializable" class="in"><span>Serializable</span></li><li name="java.io.Serializable" class="in"><span>Serializable</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
             </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -61,39 +55,9 @@ messages to instruct the decorator to emit a <a name="org.eligosource.eventsourc
 
       <div id="template">
         <div id="allMembers">
-        <div class="members" id="constructors">
-              <h3>Instance Constructors</h3>
-              <ol><li visbl="pub" name="org.eligosource.eventsourced.core.Decorator#this" data-isabs="false">
-      <a id="this:Decorator"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">new</span>
-      </span>
-      <span class="symbol">
-        <span class="name">Decorator</span><span class="params">(<span name="target">target: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>)</span>
-      </span>
-      </h4>
-      
-    </li></ol>
-            </div>
+        
 
-        <div class="types members" id="types">
-              <h3>Type Members</h3>
-              <ol><li visbl="pub" name="akka.actor.Actor#Receive" data-isabs="false">
-      <a id="Receive:Receive"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">type</span>
-      </span>
-      <span class="symbol">
-        <span class="name">Receive</span><span class="result"> = <span name="scala.PartialFunction" class="extype">PartialFunction</span>[<span name="scala.Any" class="extype">Any</span>, <span name="scala.Unit" class="extype">Unit</span>]</span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
-    </li></ol>
-            </div>
+        
 
         
 
@@ -159,6 +123,54 @@ messages to instruct the decorator to emit a <a name="org.eligosource.eventsourc
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.RedeliveryPolicy#DefaultRecoveryDelay" data-isabs="false">
+      <a id="DefaultRecoveryDelay:FiniteDuration"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">DefaultRecoveryDelay</span><span class="result">: <span name="akka.util.FiniteDuration" class="extype">FiniteDuration</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Default recovery delay: 5 seconds</p>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.RedeliveryPolicy#DefaultRetryDelay" data-isabs="false">
+      <a id="DefaultRetryDelay:FiniteDuration"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">DefaultRetryDelay</span><span class="result">: <span name="akka.util.FiniteDuration" class="extype">FiniteDuration</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Default re-delivery delay: 1 second</p>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.RedeliveryPolicy#DefaultRetryMax" data-isabs="false">
+      <a id="DefaultRetryMax:Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">DefaultRetryMax</span><span class="result">: <span name="scala.Int" class="extype">Int</span></span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.RedeliveryPolicy#apply" data-isabs="false">
+      <a id="apply():RedeliveryPolicy"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="params">()</span><span class="result">: <a name="org.eligosource.eventsourced.core.RedeliveryPolicy" class="extype" href="RedeliveryPolicy.html">RedeliveryPolicy</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a <a name="org.eligosource.eventsourced.core.RedeliveryPolicy" class="extype" href="RedeliveryPolicy.html">RedeliveryPolicy</a> with default settings.</p>
     </li><li visbl="pub" name="scala.Any#asInstanceOf" data-isabs="false">
       <a id="asInstanceOf[T0]:T0"></a>
       <h4 class="signature">
@@ -186,30 +198,6 @@ messages to instruct the decorator to emit a <a name="org.eligosource.eventsourc
                 <span class="name">@throws</span><span class="args">()</span>
               
         </dd></dl></div>
-    </li><li visbl="prt" name="akka.actor.Actor#context" data-isabs="false">
-      <a id="context:ActorContext"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">context</span><span class="result">: <span name="akka.actor.ActorContext" class="extype">ActorContext</span></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="akka" class="extype" href="../../../../akka/package.html">akka</a>] </dd><dt>Definition Classes</dt><dd>Actor</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Decorator#counter" data-isabs="false">
-      <a id="counter:Long"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">var</span>
-      </span>
-      <span class="symbol">
-        <span class="name">counter</span><span class="result">: <span name="scala.Long" class="extype">Long</span></span>
-      </span>
-      </h4>
-      
     </li><li visbl="pub" name="scala.AnyRef#eq" data-isabs="false">
       <a id="eq(AnyRef):Boolean"></a>
       <h4 class="signature">
@@ -321,114 +309,18 @@ messages to instruct the decorator to emit a <a name="org.eligosource.eventsourc
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
-    </li><li visbl="pub" name="akka.actor.Actor#postRestart" data-isabs="false">
-      <a id="postRestart(Throwable):Unit"></a>
+    </li><li visbl="prt" name="org.eligosource.eventsourced.core.RedeliveryPolicy#readResolve" data-isabs="false">
+      <a id="readResolve():AnyRef"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">postRestart</span><span class="params">(<span name="reason">reason: Throwable</span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+        <span class="name">readResolve</span><span class="params">()</span><span class="result">: AnyRef</span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
-    </li><li visbl="pub" name="akka.actor.Actor#postStop" data-isabs="false">
-      <a id="postStop():Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">postStop</span><span class="params">()</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
-    </li><li visbl="pub" name="akka.actor.Actor#preRestart" data-isabs="false">
-      <a id="preRestart(Throwable,Option[Any]):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">preRestart</span><span class="params">(<span name="reason">reason: Throwable</span>, <span name="message">message: <span name="scala.Option" class="extype">Option</span>[<span name="scala.Any" class="extype">Any</span>]</span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
-    </li><li visbl="pub" name="akka.actor.Actor#preStart" data-isabs="false">
-      <a id="preStart():Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">preStart</span><span class="params">()</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Decorator#receive" data-isabs="false">
-      <a id="receive:PartialFunction[Any, Unit]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">receive</span><span class="result">: <span name="scala.PartialFunction" class="extype">PartialFunction</span>[<span name="scala.Any" class="extype">Any</span>, <span name="scala.Unit" class="extype">Unit</span>]</span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Decorator" class="extype" href="">Decorator</a> → Actor</dd></dl></div>
-    </li><li visbl="pub" name="akka.actor.Actor#self" data-isabs="false">
-      <a id="self:ActorRef"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">implicit final </span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">self</span><span class="result">: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
-    </li><li visbl="pub" name="akka.actor.Actor#sender" data-isabs="false">
-      <a id="sender:ActorRef"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier">final </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">sender</span><span class="result">: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Decorator#sequencer" data-isabs="false">
-      <a id="sequencer:ActorRef"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">sequencer</span><span class="result">: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>
-      </span>
-      </h4>
-      
-    </li><li visbl="pub" name="akka.actor.Actor#supervisorStrategy" data-isabs="false">
-      <a id="supervisorStrategy():SupervisorStrategy"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">supervisorStrategy</span><span class="params">()</span><span class="result">: <span name="akka.actor.SupervisorStrategy" class="extype">SupervisorStrategy</span></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd></dl></div>
     </li><li visbl="pub" name="scala.AnyRef#synchronized" data-isabs="false">
       <a id="synchronized[T0](⇒ T0):T0"></a>
       <h4 class="signature">
@@ -453,18 +345,6 @@ messages to instruct the decorator to emit a <a name="org.eligosource.eventsourc
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li visbl="pub" name="akka.actor.Actor#unhandled" data-isabs="false">
-      <a id="unhandled(Any):Unit"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">unhandled</span><span class="params">(<span name="message">message: <span name="scala.Any" class="extype">Any</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
-      </span>
-      </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Actor</dd></dl></div>
     </li><li visbl="pub" name="scala.AnyRef#wait" data-isabs="false">
       <a id="wait():Unit"></a>
       <h4 class="signature">
@@ -517,8 +397,10 @@ messages to instruct the decorator to emit a <a name="org.eligosource.eventsourc
         </div>
 
         <div id="inheritedMembers">
-        <div name="akka.actor.Actor" class="parent">
-              <h3>Inherited from <span name="akka.actor.Actor" class="extype">Actor</span></h3>
+        <div name="scala.Serializable" class="parent">
+              <h3>Inherited from <span name="scala.Serializable" class="extype">Serializable</span></h3>
+            </div><div name="java.io.Serializable" class="parent">
+              <h3>Inherited from <span name="java.io.Serializable" class="extype">Serializable</span></h3>
             </div><div name="scala.AnyRef" class="parent">
               <h3>Inherited from AnyRef</h3>
             </div><div name="scala.Any" class="parent">

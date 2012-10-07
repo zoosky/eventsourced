@@ -59,22 +59,21 @@
         <a href="Channel.html"><span class="name">Channel</span></a><span class="result"> extends Actor</span>
       </span>
       </h4>
-      <p class="comment cmt">A channel is used by <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processors
-to send event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>s to destinations.</p>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Context" data-isabs="false">
-      <a id="Context:Context"></a>
+      <p class="comment cmt">A channel is used by <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a>
+processors to send event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>s
+to destinations.</p>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ChannelProps" data-isabs="true">
+      <a id="ChannelProps:ChannelProps"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">case class</span>
+        <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="Context.html"><span class="name">Context</span></a><span class="params">(<span name="journal">journal: ActorRef</span>, <span name="processors">processors: Map[Int, ActorRef]</span>, <span name="channels">channels: Map[String, ActorRef]</span>, <span name="producer">producer: ActorRef</span>, <span name="system">system: ActorSystem</span>)</span><span class="result"> extends Product with Serializable</span>
+        <a href="ChannelProps.html"><span class="name">ChannelProps</span></a><span class="result"> extends AnyRef</span>
       </span>
       </h4>
-      <p class="comment cmt">A context for <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processors and
-<a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>s that are used by processors to emit
-event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>s to destinations.</p>
+      <p class="comment cmt">Channel configuration object.</p>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.Decorator" data-isabs="false">
       <a id="Decorator:Decorator"></a>
       <h4 class="signature">
@@ -102,6 +101,18 @@ as Akka FSMs since they implement <code>Actor.receive</code> as <code>final</cod
       </h4>
       <p class="comment cmt">A transient channel that sends event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>s
 to destinations.</p>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.DefaultChannelProps" data-isabs="false">
+      <a id="DefaultChannelProps:DefaultChannelProps"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="DefaultChannelProps.html"><span class="name">DefaultChannelProps</span></a><span class="params">(<span name="id">id: Int</span>, <span name="destination">destination: ActorRef</span>, <span name="replyDestination">replyDestination: Option[ActorRef]</span>, <span name="name">name: Option[String]</span>)</span><span class="result"> extends ChannelProps with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt"><a name="org.eligosource.eventsourced.core.DefaultChannel" class="extype" href="DefaultChannel.html">DefaultChannel</a> configuration object.</p>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.Emitter" data-isabs="true">
       <a id="Emitter:Emitter"></a>
       <h4 class="signature">
@@ -113,8 +124,9 @@ to destinations.</p>
         <a href="Emitter.html"><span class="name">Emitter</span></a><span class="result"> extends Receiver</span>
       </span>
       </h4>
-      <p class="comment cmt">Stackable modification for actors that need access to the channels of
-a <a name="org.eligosource.eventsourced.core.Context" class="extype" href="Context.html">Context</a>.</p>
+      <p class="comment cmt">Stackable modification for actors to provide <i>convenient</i> access to registered
+<a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>s and to <i>emit</i> event messages to
+these channels.</p>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.Eventsourced" data-isabs="true">
       <a id="Eventsourced:Eventsourced"></a>
       <h4 class="signature">
@@ -123,36 +135,22 @@ a <a name="org.eligosource.eventsourced.core.Context" class="extype" href="Conte
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="Eventsourced.html"><span class="name">Eventsourced</span></a><span class="result"> extends Emitter</span>
+        <a href="Eventsourced.html"><span class="name">Eventsourced</span></a><span class="result"> extends TargetBehavior</span>
       </span>
       </h4>
       <p class="comment cmt">Stackable modification for making an actor persitent via event-sourcing (or command-sourcing).</p>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ForwardContext" data-isabs="true">
-      <a id="ForwardContext:ForwardContext"></a>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension" data-isabs="false">
+      <a id="EventsourcingExtension:EventsourcingExtension"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">trait</span>
+        <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a href="ForwardContext.html"><span class="name">ForwardContext</span></a><span class="result"> extends Emitter</span>
+        <a href="EventsourcingExtension.html"><span class="name">EventsourcingExtension</span></a><span class="result"> extends Extension</span>
       </span>
       </h4>
-      <p class="comment cmt">Stackable modification for <a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emitter.html">Emitter</a> to set
-<code>Emitter.forwardContext</code> to <code>true</code>.</p>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ForwardMessage" data-isabs="true">
-      <a id="ForwardMessage:ForwardMessage"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">trait</span>
-      </span>
-      <span class="symbol">
-        <a href="ForwardMessage.html"><span class="name">ForwardMessage</span></a><span class="result"> extends Receiver</span>
-      </span>
-      </h4>
-      <p class="comment cmt">Stackable modification for <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a> to set
-<code>Receiver.forwardMessage</code> to <code>true</code>.</p>
+      <p class="comment cmt">Event-sourcing extension for Akka.</p>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.Idempotent" data-isabs="true">
       <a id="Idempotent:Idempotent"></a>
       <h4 class="signature">
@@ -164,7 +162,8 @@ a <a name="org.eligosource.eventsourced.core.Context" class="extype" href="Conte
         <a href="Idempotent.html"><span class="name">Idempotent</span></a><span class="result"> extends Actor</span>
       </span>
       </h4>
-      <p class="comment cmt">Makes receivers idempotent based on message sequence number.</p>
+      <p class="comment cmt">Makes event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a> receivers idempotent
+based on message sequence number.</p>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.Message" data-isabs="false">
       <a id="Message:Message"></a>
       <h4 class="signature">
@@ -214,6 +213,18 @@ a <a name="org.eligosource.eventsourced.core.Context" class="extype" href="Conte
       </h4>
       <p class="comment cmt">An <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processor that forwards
 received event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>s to <code>targets</code>.</p>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ProcessorProps" data-isabs="false">
+      <a id="ProcessorProps:ProcessorProps"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">case class</span>
+      </span>
+      <span class="symbol">
+        <a href="ProcessorProps.html"><span class="name">ProcessorProps</span></a><span class="params">(<span name="id">id: Int</span>, <span name="processor">processor: ActorRef</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt"><a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processor configuration object.</p>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.Receiver" data-isabs="true">
       <a id="Receiver:Receiver"></a>
       <h4 class="signature">
@@ -222,22 +233,24 @@ received event <a name="org.eligosource.eventsourced.core.Message" class="extype
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <a href="Receiver.html"><span class="name">Receiver</span></a><span class="result"> extends ReceiverBehavior</span>
+        <a href="Receiver.html"><span class="name">Receiver</span></a><span class="result"> extends TargetBehavior</span>
       </span>
       </h4>
-      <p class="comment cmt">Stackable modification for actors that receive event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>s.</p>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReceiverRef" data-isabs="false">
-      <a id="ReceiverRef:ReceiverRef"></a>
+      <p class="comment cmt">Stackable modification for extracting <code>event</code> from received event
+<a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>s and calling the modified
+actor's <code>receive</code> method with that event.</p>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.RedeliveryPolicy" data-isabs="false">
+      <a id="RedeliveryPolicy:RedeliveryPolicy"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">class</span>
+        <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="ReceiverRef.html"><span class="name">ReceiverRef</span></a><span class="result"> extends AnyRef</span>
+        <a href="RedeliveryPolicy.html"><span class="name">RedeliveryPolicy</span></a><span class="params">(<span name="recoveryDelay">recoveryDelay: Duration</span>, <span name="retryDelay">retryDelay: Duration</span>, <span name="retryMax">retryMax: Int</span>)</span><span class="result"> extends Product with Serializable</span>
       </span>
       </h4>
-      <p class="comment cmt">Event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a> <code>receiver</code> extension.</p>
+      <p class="comment cmt">Redelivery policy for a <a name="org.eligosource.eventsourced.core.ReliableChannel" class="extype" href="ReliableChannel.html">ReliableChannel</a>.</p>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannel" data-isabs="false">
       <a id="ReliableChannel:ReliableChannel"></a>
       <h4 class="signature">
@@ -251,18 +264,18 @@ received event <a name="org.eligosource.eventsourced.core.Message" class="extype
       </h4>
       <p class="comment cmt">A persistent channel that sends event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>s to
 destinations.</p>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelConf" data-isabs="false">
-      <a id="ReliableChannelConf:ReliableChannelConf"></a>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelProps" data-isabs="false">
+      <a id="ReliableChannelProps:ReliableChannelProps"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <a href="ReliableChannelConf.html"><span class="name">ReliableChannelConf</span></a><span class="params">(<span name="recoveryDelay">recoveryDelay: Duration</span>, <span name="retryDelay">retryDelay: Duration</span>, <span name="retryMax">retryMax: Int</span>)</span><span class="result"> extends Product with Serializable</span>
+        <a href="ReliableChannelProps.html"><span class="name">ReliableChannelProps</span></a><span class="params">(<span name="id">id: Int</span>, <span name="destination">destination: ActorRef</span>, <span name="replyDestination">replyDestination: Option[ActorRef]</span>, <span name="policy">policy: RedeliveryPolicy</span>, <span name="name">name: Option[String]</span>)</span><span class="result"> extends ChannelProps with Product with Serializable</span>
       </span>
       </h4>
-      <p class="comment cmt">Redelivery policy for a <a name="org.eligosource.eventsourced.core.ReliableChannel" class="extype" href="ReliableChannel.html">ReliableChannel</a>.</p>
+      <p class="comment cmt"><a name="org.eligosource.eventsourced.core.ReliableChannel" class="extype" href="ReliableChannel.html">ReliableChannel</a> configuration object.</p>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.Responder" data-isabs="true">
       <a id="Responder:Responder"></a>
       <h4 class="signature">
@@ -274,8 +287,8 @@ destinations.</p>
         <a href="Responder.html"><span class="name">Responder</span></a><span class="result"> extends Receiver</span>
       </span>
       </h4>
-      <p class="comment cmt">Stackable modification for actors that receive event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>s
-and generate response <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>s.</p>
+      <p class="comment cmt">Stackable modification for <i>conveniently</i> responding to received event
+<a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>s.</p>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.ResponseMessageSender" data-isabs="false">
       <a id="ResponseMessageSender:ResponseMessageSender"></a>
       <h4 class="signature">
@@ -300,19 +313,19 @@ and generate response <a name="org.eligosource.eventsourced.core.Message" class=
       </span>
       </h4>
       <p class="comment cmt">Stackable modification for actors that need to receive a re-sequenced message stream.</p>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.package.SetContext" data-isabs="false">
-      <a id="SetContext:SetContext"></a>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.TargetRef" data-isabs="false">
+      <a id="TargetRef:TargetRef"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">case class</span>
+        <span class="kind">class</span>
       </span>
       <span class="symbol">
-        <a href="package$$SetContext.html"><span class="name">SetContext</span></a><span class="params">(<span name="context">context: Context</span>)</span><span class="result"> extends Product with Serializable</span>
+        <a href="TargetRef.html"><span class="name">TargetRef</span></a><span class="result"> extends AnyRef</span>
       </span>
       </h4>
-      <p class="comment cmt">Sent to actors modified with <a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emitter.html">Emitter</a>
-for injecting a <a name="org.eligosource.eventsourced.core.Context" class="extype" href="Context.html">Context</a>.</p>
+      <p class="comment cmt">Pimps an actor ref with special-purpose event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>
+sending methods.</p>
     </li></ol>
             </div>
 
@@ -332,18 +345,6 @@ for injecting a <a name="org.eligosource.eventsourced.core.Context" class="extyp
       </span>
       </h4>
       <p class="comment cmt"></p>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Context" data-isabs="false">
-      <a id="Context:Context"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">object</span>
-      </span>
-      <span class="symbol">
-        <a href="Context$.html"><span class="name">Context</span></a><span class="result"> extends Serializable</span>
-      </span>
-      </h4>
-      
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.Decorator" data-isabs="false">
       <a id="Decorator:Decorator"></a>
       <h4 class="signature">
@@ -356,27 +357,51 @@ for injecting a <a name="org.eligosource.eventsourced.core.Context" class="extyp
       </span>
       </h4>
       
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannelConf" data-isabs="false">
-      <a id="ReliableChannelConf:ReliableChannelConf"></a>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension" data-isabs="false">
+      <a id="EventsourcingExtension:EventsourcingExtension"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">object</span>
       </span>
       <span class="symbol">
-        <a href="ReliableChannelConf$.html"><span class="name">ReliableChannelConf</span></a><span class="result"> extends Serializable</span>
+        <a href="EventsourcingExtension$.html"><span class="name">EventsourcingExtension</span></a><span class="result"> extends ExtensionId[EventsourcingExtension] with ExtensionIdProvider</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Event-sourcing extension access point.</p>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ProcessorProps" data-isabs="false">
+      <a id="ProcessorProps:ProcessorProps"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="ProcessorProps$.html"><span class="name">ProcessorProps</span></a><span class="result"> extends Serializable</span>
       </span>
       </h4>
       
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.package#actorRef2ReceiverRef" data-isabs="false">
-      <a id="actorRef2ReceiverRef(ActorRef):ReceiverRef"></a>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.RedeliveryPolicy" data-isabs="false">
+      <a id="RedeliveryPolicy:RedeliveryPolicy"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">object</span>
+      </span>
+      <span class="symbol">
+        <a href="RedeliveryPolicy$.html"><span class="name">RedeliveryPolicy</span></a><span class="result"> extends Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.package#actorRef2TargetRef" data-isabs="false">
+      <a id="actorRef2TargetRef(ActorRef):TargetRef"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier">implicit </span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">actorRef2ReceiverRef</span><span class="params">(<span name="processor">processor: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>)</span><span class="result">: <a name="org.eligosource.eventsourced.core.ReceiverRef" class="extype" href="ReceiverRef.html">ReceiverRef</a></span>
+        <span class="name">actorRef2TargetRef</span><span class="params">(<span name="actorRef">actorRef: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>)</span><span class="result">: <a name="org.eligosource.eventsourced.core.TargetRef" class="extype" href="TargetRef.html">TargetRef</a></span>
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.package" class="extype" href="package$.html">package</a></dd></dl></div>
@@ -405,7 +430,7 @@ for injecting a <a name="org.eligosource.eventsourced.core.Context" class="extyp
         <span class="name">multicast</span><span class="params">(<span name="targets">targets: Seq[<span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>)</span><span class="result">: <a name="org.eligosource.eventsourced.core.Multicast" class="extype" href="Multicast.html">Multicast</a> with <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a></span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Returns a mutlicast processor.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a mutlicast processor.
+      <p class="shortcomment cmt">Returns a multicast processor.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a multicast processor.
 </p></div><dl class="paramcmts block"><dt class="param">targets</dt><dd class="cmt"><p>multicast targets.
 </p></dd></dl><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.package" class="extype" href="package$.html">package</a></dd></dl></div>
     </li></ol>
