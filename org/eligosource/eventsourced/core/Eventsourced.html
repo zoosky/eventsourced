@@ -25,11 +25,11 @@
         <span class="kind">trait</span>
       </span>
       <span class="symbol">
-        <span class="name">Eventsourced</span><span class="result"> extends <a name="akka.actor.TargetBehavior" class="extype" href="../../../../akka/actor/TargetBehavior.html">TargetBehavior</a></span>
+        <span class="name">Eventsourced</span><span class="result"> extends <a name="akka.actor.Behavior" class="extype" href="../../../../akka/actor/Behavior.html">Behavior</a></span>
       </span>
       </h4>
       
-      <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Stackable modification for making an actor persitent via event-sourcing (or command-sourcing).
+      <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Stackable modification for making an actor persistent via event-sourcing (or command-sourcing).
 It writes any input <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a> to a journal. Input messages
 of any other type are not journaled. Example:</p><pre>
  <span class="kw">val</span> system: ActorSystem = ...
@@ -43,7 +43,11 @@ of any other type are not journaled. Example:</p><pre>
    }
  }
 
- <span class="kw">val</span> myActor = extension.processorOf(ProcessorProps(<span class="num">1</span>, <span class="kw">new</span> MyActor <span class="kw">with</span> Eventsourced))
+ <span class="cmt">// create and register and event-sourced actor (processor)</span>
+ <span class="kw">val</span> myActor = extension.processorOf(Props(<span class="kw">new</span> MyActor <span class="kw">with</span> Eventsourced { <span class="kw">val</span> id = <span class="num">1</span> } ))
+
+ <span class="cmt">// replay journaled messages from previous application runs</span>
+ extension.recover()
 
  myActor ! Message(<span class="lit">"foo event"</span>) <span class="cmt">// message will be journaled</span>
  myActor ! <span class="lit">"whatever"</span>           <span class="cmt">// message will not be journaled</span>
@@ -53,10 +57,12 @@ or <a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emit
  <span class="kw">new</span> Actor <span class="kw">with</span> Emitter <span class="kw">with</span> Eventsourced { ... }   <span class="cmt">// ok</span>
  <span class="kw">new</span> Actor <span class="kw">with</span> Eventsourced <span class="kw">with</span> Receiver { ... }  <span class="cmt">// won't work</span>
  <span class="kw">new</span> Actor <span class="kw">with</span> Eventsourced <span class="kw">with</span> Emitter { ... }   <span class="cmt">// won't work</span>
-</pre></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a name="org.eligosource.eventsourced.core.EventsourcingExtension" class="extype" href="EventsourcingExtension.html">EventsourcingExtension</a>
+</pre><p>The <code>Eventsourced</code> trait can additionally be combined with the stackable
+<a name="org.eligosource.eventsourced.core.Confirm" class="extype" href="Confirm.html">Confirm</a> trait.
+</p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a name="org.eligosource.eventsourced.core.EventsourcingExtension" class="extype" href="EventsourcingExtension.html">EventsourcingExtension</a>
 </p></span></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
-          <div class="superTypes hiddenContent"><a name="akka.actor.TargetBehavior" class="extype" href="../../../../akka/actor/TargetBehavior.html">TargetBehavior</a>, <span name="akka.actor.Actor" class="extype">Actor</span>, AnyRef, <span name="scala.Any" class="extype">Any</span></div>
+          <div class="superTypes hiddenContent"><a name="akka.actor.Behavior" class="extype" href="../../../../akka/actor/Behavior.html">Behavior</a>, <span name="akka.actor.Actor" class="extype">Actor</span>, AnyRef, <span name="scala.Any" class="extype">Any</span></div>
         </div></div>
     
 
@@ -70,7 +76,7 @@ or <a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emit
               <span class="filtertype">Inherited</span>
               <ol><li class="hideall out"><span>Hide All</span></li>
               <li class="showall in"><span>Show all</span></li></ol>
-              <ol id="linearization"><li name="org.eligosource.eventsourced.core.Eventsourced" class="in"><span>Eventsourced</span></li><li name="akka.actor.TargetBehavior" class="in"><span>TargetBehavior</span></li><li name="akka.actor.Actor" class="in"><span>Actor</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
+              <ol id="linearization"><li name="org.eligosource.eventsourced.core.Eventsourced" class="in"><span>Eventsourced</span></li><li name="akka.actor.Behavior" class="in"><span>Behavior</span></li><li name="akka.actor.Actor" class="in"><span>Actor</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
             </div>
         <div id="visbl">
             <span class="filtertype">Visibility</span>
@@ -99,10 +105,26 @@ or <a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emit
     </li></ol>
             </div>
 
-        
+        <div class="values members" id="values">
+              <h3>Abstract Value Members</h3>
+              <ol><li visbl="pub" name="org.eligosource.eventsourced.core.Eventsourced#id" data-isabs="true">
+      <a id="id:Int"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier">abstract </span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">id</span><span class="result">: <span name="scala.Int" class="extype">Int</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Processor id.</p><div class="fullcomment"><div class="comment cmt"><p>Processor id. Must be a positive integer.
+</p></div></div>
+    </li></ol>
+            </div>
 
         <div class="values members" id="values">
-              <h3>Value Members</h3>
+              <h3>Concrete Value Members</h3>
               <ol><li visbl="pub" name="scala.AnyRef#!=" data-isabs="false">
       <a id="!=(AnyRef):Boolean"></a>
       <h4 class="signature">
@@ -175,22 +197,6 @@ or <a name="org.eligosource.eventsourced.core.Emitter" class="extype" href="Emit
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Eventsourced#autoAck" data-isabs="false">
-      <a id="autoAck:Boolean"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">autoAck</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Overrides to <code>false</code> to avoid that an existing <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a>
-modification additionally sends an <code>Ack</code> to the current <code>sender</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Overrides to <code>false</code> to avoid that an existing <a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a>
-modification additionally sends an <code>Ack</code> to the current <code>sender</code>. This ensures that the current
-sender will receive <code>Ack</code>s only from the journal that is used by this trait.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="">Eventsourced</a> → <a name="akka.actor.TargetBehavior" class="extype" href="../../../../akka/actor/TargetBehavior.html">TargetBehavior</a></dd></dl></div>
     </li><li visbl="prt" name="scala.AnyRef#clone" data-isabs="false">
       <a id="clone():AnyRef"></a>
       <h4 class="signature">
@@ -281,20 +287,6 @@ sender will receive <code>Ack</code>s only from the journal that is used by this
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Eventsourced#id" data-isabs="false">
-      <a id="id:Int"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">id</span><span class="result">: <span name="scala.Int" class="extype">Int</span></span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Processor id.</p><div class="fullcomment"><div class="comment cmt"><p>Processor id. Must only be accessed from within the modified actor's
-<code>receive</code> method.
-</p></div></div>
     </li><li visbl="pub" name="scala.Any#isInstanceOf" data-isabs="false">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <h4 class="signature">
@@ -402,7 +394,7 @@ sender will receive <code>Ack</code>s only from the journal that is used by this
         <span class="name">receive</span><span class="result">: <span name="scala.PartialFunction" class="extype">PartialFunction</span>[<span name="scala.Any" class="extype">Any</span>, <span name="scala.Unit" class="extype">Unit</span>]</span>
       </span>
       </h4>
-      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="">Eventsourced</a> → <a name="akka.actor.TargetBehavior" class="extype" href="../../../../akka/actor/TargetBehavior.html">TargetBehavior</a> → Actor</dd></dl></div>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="">Eventsourced</a> → <a name="akka.actor.Behavior" class="extype" href="../../../../akka/actor/Behavior.html">Behavior</a> → Actor</dd></dl></div>
     </li><li visbl="pub" name="akka.actor.Actor#self" data-isabs="false">
       <a id="self:ActorRef"></a>
       <h4 class="signature">
@@ -527,8 +519,8 @@ sender will receive <code>Ack</code>s only from the journal that is used by this
         </div>
 
         <div id="inheritedMembers">
-        <div name="akka.actor.TargetBehavior" class="parent">
-              <h3>Inherited from <a name="akka.actor.TargetBehavior" class="extype" href="../../../../akka/actor/TargetBehavior.html">TargetBehavior</a></h3>
+        <div name="akka.actor.Behavior" class="parent">
+              <h3>Inherited from <a name="akka.actor.Behavior" class="extype" href="../../../../akka/actor/Behavior.html">Behavior</a></h3>
             </div><div name="akka.actor.Actor" class="parent">
               <h3>Inherited from <span name="akka.actor.Actor" class="extype">Actor</span></h3>
             </div><div name="scala.AnyRef" class="parent">

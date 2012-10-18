@@ -124,14 +124,14 @@
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.ProcessorProps#apply" data-isabs="false">
-      <a id="apply(Int,⇒ Eventsourced)(ActorRefFactory):ProcessorProps"></a>
+      <a id="apply(Int,(Int) ⇒ Actor with Eventsourced)(ActorRefFactory):ProcessorProps"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="id">id: <span name="scala.Int" class="extype">Int</span></span>, <span name="processorFactory">processorFactory: ⇒ <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="actorRefFactory">actorRefFactory: <span name="akka.actor.ActorRefFactory" class="extype">ActorRefFactory</span></span>)</span><span class="result">: <a name="org.eligosource.eventsourced.core.ProcessorProps" class="extype" href="ProcessorProps.html">ProcessorProps</a></span>
+        <span class="name">apply</span><span class="params">(<span name="id">id: <span name="scala.Int" class="extype">Int</span></span>, <span name="processorFactory">processorFactory: (<span name="scala.Int" class="extype">Int</span>) ⇒ <span name="akka.actor.Actor" class="extype">Actor</span> with <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="actorRefFactory">actorRefFactory: <span name="akka.actor.ActorRefFactory" class="extype">ActorRefFactory</span></span>)</span><span class="result">: <a name="org.eligosource.eventsourced.core.ProcessorProps" class="extype" href="ProcessorProps.html">ProcessorProps</a></span>
       </span>
       </h4>
       <p class="shortcomment cmt">Creates a processor configuration object from a processor id and processor factory.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a processor configuration object from a processor id and processor factory.

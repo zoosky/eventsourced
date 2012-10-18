@@ -30,14 +30,16 @@
       </h4>
       
       <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>A persistent channel that sends event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>s to
-destinations. Every event message sent to this channel is stored in the journal together
-with an acknowledgement. If the <code>destination</code> responds, the stored message will be deleted
-from the journal (but not the acknowledgement). If a <code>replyDestination</code> is set, the stored
-message will be deleted when the reply destination responds. If the <code>destination</code> or
-<code>replyDestination</code> does not respond (i.e. when a timeout occurs) or respond with a
-<code>Status.Failure</code>, a re-delivery is attempted. If the maximum number of re-delivery attempts
-have been made, the channel restarts itself after a certain <i>recovery delay</i> (and starts
-again with re-deliveries).
+<code>destination</code>. Every event message sent to this channel is stored in the journal together
+with an <i>acknowledgement</i> (which is used during replay to decide if a channel should
+ignore a message or not). If <code>destination</code> positively confirms the receipt of an event
+message with <code>Message.confirm()</code> the stored message is deleted from the journal. If
+<code>destination</code> negatively confirms the receipt of an event message with <code>Message.confirm(false)</code>
+or no confirmation was made (i.e. a timeout occurred), a re-delivery is attempted. If the
+maximum number of re-delivery attempts have been made, the channel restarts itself after
+a certain <i>recovery delay</i> (and starts again with re-deliveries).</p><p>A <code>ReliableChannel</code> preserves the <code>sender</code> reference (i.e. forwards it to <code>destination</code>) only
+after initial delivery (which occurs, for example, during <code>EventsourcingExtension.recover()</code>
+or <code>EventsourcingExtension.deliver()</code>).
 </p></div><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>
      <a name="org.eligosource.eventsourced.core.RedeliveryPolicy" class="extype" href="RedeliveryPolicy.html">RedeliveryPolicy</a>
 </p></span></dd></dl><div class="toggleContainer block">
@@ -76,10 +78,11 @@ again with re-deliveries).
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">ReliableChannel</span><span class="params">(<span name="id">id: <span name="scala.Int" class="extype">Int</span></span>, <span name="journal">journal: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>, <span name="policy">policy: <a name="org.eligosource.eventsourced.core.RedeliveryPolicy" class="extype" href="RedeliveryPolicy.html">RedeliveryPolicy</a></span>)</span>
+        <span class="name">ReliableChannel</span><span class="params">(<span name="id">id: <span name="scala.Int" class="extype">Int</span></span>, <span name="journal">journal: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>, <span name="destination">destination: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>, <span name="policy">policy: <a name="org.eligosource.eventsourced.core.RedeliveryPolicy" class="extype" href="RedeliveryPolicy.html">RedeliveryPolicy</a></span>)</span>
       </span>
       </h4>
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">id</dt><dd class="cmt"><p>channel id.</p></dd><dt class="param">journal</dt><dd class="cmt"><p>journal of the context that created this channel.</p></dd><dt class="param">policy</dt><dd class="cmt"><p>redelivery policy for the channel.
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">id</dt><dd class="cmt"><p>channel id. Must be a positive integer.</p></dd><dt class="param">journal</dt><dd class="cmt"><p>journal of the <a name="org.eligosource.eventsourced.core.EventsourcingExtension" class="extype" href="EventsourcingExtension.html">EventsourcingExtension</a>
+       at which this channel is registered.</p></dd><dt class="param">destination</dt><dd class="cmt"><p>delivery destination of event messages added to this channel.
 </p></dd></dl></div>
     </li></ol>
             </div>
@@ -204,20 +207,19 @@ again with re-deliveries).
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="akka" class="extype" href="../../../../akka/package.html">akka</a>] </dd><dt>Definition Classes</dt><dd>Actor</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Channel#destination" data-isabs="false">
-      <a id="destination:Option[ActorRef]"></a>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannel#destination" data-isabs="false">
+      <a id="destination:ActorRef"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
-        <span class="kind">var</span>
+        <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">destination</span><span class="result">: <span name="scala.Option" class="extype">Option</span>[<span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>
+        <span class="name">destination</span><span class="result">: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Channel destination.</p><div class="fullcomment"><div class="comment cmt"><p>Channel destination. Set when a channel is created via
-<code>EventsourcingExtension.channelOf</code>.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a></dd></dl></div>
+      <p class="shortcomment cmt">delivery destination of event messages added to this channel.</p><div class="fullcomment"><div class="comment cmt"><p>delivery destination of event messages added to this channel.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.ReliableChannel" class="extype" href="">ReliableChannel</a> → <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a></dd></dl></div>
     </li><li visbl="pub" name="scala.AnyRef#eq" data-isabs="false">
       <a id="eq(AnyRef):Boolean"></a>
       <h4 class="signature">
@@ -304,7 +306,7 @@ again with re-deliveries).
         <span class="name">id</span><span class="result">: <span name="scala.Int" class="extype">Int</span></span>
       </span>
       </h4>
-      <p class="shortcomment cmt">channel id.</p><div class="fullcomment"><div class="comment cmt"><p>channel id.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.ReliableChannel" class="extype" href="">ReliableChannel</a> → <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a></dd></dl></div>
+      <p class="shortcomment cmt">channel id.</p><div class="fullcomment"><div class="comment cmt"><p>channel id. Must be a positive integer.</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.ReliableChannel" class="extype" href="">ReliableChannel</a> → <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a></dd></dl></div>
     </li><li visbl="pub" name="scala.Any#isInstanceOf" data-isabs="false">
       <a id="isInstanceOf[T0]:Boolean"></a>
       <h4 class="signature">
@@ -317,6 +319,19 @@ again with re-deliveries).
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.ReliableChannel#journal" data-isabs="false">
+      <a id="journal:ActorRef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">journal</span><span class="result">: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">journal of the <a name="org.eligosource.eventsourced.core.EventsourcingExtension" class="extype" href="EventsourcingExtension.html">EventsourcingExtension</a>
+       at which this channel is registered.</p>
     </li><li visbl="pub" name="scala.AnyRef#ne" data-isabs="false">
       <a id="ne(AnyRef):Boolean"></a>
       <h4 class="signature">
@@ -413,23 +428,6 @@ again with re-deliveries).
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.ReliableChannel" class="extype" href="">ReliableChannel</a> → Actor</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Channel#replyDestination" data-isabs="false">
-      <a id="replyDestination:Option[ActorRef]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">var</span>
-      </span>
-      <span class="symbol">
-        <span class="name">replyDestination</span><span class="result">: <span name="scala.Option" class="extype">Option</span>[<span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Channel reply destination.</p><div class="fullcomment"><div class="comment cmt"><p>Channel reply destination. Optionally set when a channel is created via
-<code>EventsourcingExtension.channelOf</code>. If set, responses from destinations
-are routed to the reply destination. The order of messages sent to the
-reply destination does not necessarily correlate with the order of
-messages sent to the destination.
-</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a></dd></dl></div>
     </li><li visbl="pub" name="akka.actor.Actor#self" data-isabs="false">
       <a id="self:ActorRef"></a>
       <h4 class="signature">

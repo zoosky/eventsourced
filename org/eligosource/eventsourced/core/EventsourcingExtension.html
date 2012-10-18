@@ -349,6 +349,22 @@ the channel name.
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#processorOf" data-isabs="false">
+      <a id="processorOf(Props)(ActorRefFactory):ActorRef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">processorOf</span><span class="params">(<span name="props">props: <span name="akka.actor.Props" class="extype">Props</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="actorRefFactory">actorRefFactory: <span name="akka.actor.ActorRefFactory" class="extype">ActorRefFactory</span></span>)</span><span class="result">: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Registers an <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processor.</p><div class="fullcomment"><div class="comment cmt"><p>Registers an <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processor.</p><p>This method obtains the id from the created processor with a blocking operation.
+Use the overloaded <code>processorOf(ProcessorProps)</code> method if you want to avoid
+blocking.
+</p></div><dl class="paramcmts block"><dt class="param">props</dt><dd class="cmt"><p>actor ref configuration object.</p></dd><dt>returns</dt><dd class="cmt"><p>a processor ref.
+</p></dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#processorOf" data-isabs="false">
       <a id="processorOf(ProcessorProps):ActorRef"></a>
       <h4 class="signature">
       <span class="modifier_kind">
@@ -360,7 +376,7 @@ the channel name.
       </span>
       </h4>
       <p class="shortcomment cmt">Registers an <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processor.</p><div class="fullcomment"><div class="comment cmt"><p>Registers an <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processor.
-</p></div><dl class="paramcmts block"><dt class="param">props</dt><dd class="cmt"><p>processor configuration object</p></dd><dt>returns</dt><dd class="cmt"><p>a processor ref
+</p></div><dl class="paramcmts block"><dt class="param">props</dt><dd class="cmt"><p>processor configuration object.</p></dd><dt>returns</dt><dd class="cmt"><p>a processor ref.
 </p></dd></dl><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a name="org.eligosource.eventsourced.core.ProcessorProps" class="extype" href="ProcessorProps.html">ProcessorProps</a>
 </p></span></dd></dl></div>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#processors" data-isabs="false">

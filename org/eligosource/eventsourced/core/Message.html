@@ -25,33 +25,32 @@
         <span class="kind">case class</span>
       </span>
       <span class="symbol">
-        <span class="name">Message</span><span class="params">(<span name="event">event: <span name="scala.Any" class="extype">Any</span></span>, <span name="sender">sender: <span name="scala.Option" class="extype">Option</span>[<span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>, <span name="senderMessageId">senderMessageId: <span name="scala.Option" class="extype">Option</span>[String]</span>, <span name="sequenceNr">sequenceNr: <span name="scala.Long" class="extype">Long</span></span>, <span name="processorId">processorId: <span name="scala.Int" class="extype">Int</span></span>, <span name="acks">acks: Seq[<span name="scala.Int" class="extype">Int</span>]</span>, <span name="ack">ack: <span name="scala.Boolean" class="extype">Boolean</span></span>)</span><span class="result"> extends <span name="scala.Product" class="extype">Product</span> with <span name="scala.Serializable" class="extype">Serializable</span></span>
+        <span class="name">Message</span><span class="params">(<span name="event">event: <span name="scala.Any" class="extype">Any</span></span>, <span name="senderMessageId">senderMessageId: <span name="scala.Option" class="extype">Option</span>[String]</span>, <span name="sequenceNr">sequenceNr: <span name="scala.Long" class="extype">Long</span></span>, <span name="processorId">processorId: <span name="scala.Int" class="extype">Int</span></span>, <span name="acks">acks: Seq[<span name="scala.Int" class="extype">Int</span>]</span>, <span name="ack">ack: <span name="scala.Boolean" class="extype">Boolean</span></span>, <span name="posConfirmationTarget">posConfirmationTarget: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>, <span name="posConfirmationMessage">posConfirmationMessage: <span name="scala.Any" class="extype">Any</span></span>, <span name="negConfirmationTarget">negConfirmationTarget: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>, <span name="negConfirmationMessage">negConfirmationMessage: <span name="scala.Any" class="extype">Any</span></span>)</span><span class="result"> extends <span name="scala.Product" class="extype">Product</span> with <span name="scala.Serializable" class="extype">Serializable</span></span>
       </span>
       </h4>
       
-      <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>A message to communicate application events. Application events are not interpreted
-by the library and can have any type.</p><p>Messages sent to an <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processor
-are called <i>input</i> messages. Processors process input messages (e.g. by modifying
-internal state) and optionally <i>emit</i> zero or more <i>output</i> messages to one or
-more channels (where output messages are <i>derived</i> from an input message). When
-a channel successfully delivered (or stored, in case of a reliable channel) the
-emitted output message(s), an acknowledgement (with a reference to the input message)
-is written to the journal. During a replay (recovery), output messages that are derived
-from already acknowledged input messages are ignored by channels, avoiding unnecessary
-re-deliveries to channel destinations.</p><p>Since the <a href="https://github.com/eligosource/eventsourced">eventsourced library</a> doesn't
-make any assumptions about the structure and semantics of <code>event</code>, applications may also
-choose to send <i>commands</i> with <a name="org.eligosource.eventsourced.core.Message" class="extype" href="">Message</a>s. In other
-words, the library can be used for both, event-sourcing and command-sourcing.
-</p></div><dl class="paramcmts block"><dt class="param">event</dt><dd class="cmt"><p>Application event (or command).</p></dd><dt class="param">sender</dt><dd class="cmt"><p>Optional, application-defined sender reference that can be used
-       by event processors to send responses to initial event message senders.</p></dd><dt class="param">senderMessageId</dt><dd class="cmt"><p>Optional, sender-defined message id that allows receivers
-       to detect duplicates (which may occur during recovery or fail-over).</p></dd><dt class="param">sequenceNr</dt><dd class="cmt"><p>Sequence number which is generated when messages are written
-       to a journal. Can also be used for detecting duplicates, in special cases.</p></dd><dt class="param">processorId</dt><dd class="cmt"><p>id of the event processor that stored (and emitted) this message
-       The processor id is given by <code>Eventsourced.id</code>.</p></dd><dt class="param">acks</dt><dd class="cmt"><p>List of channel ids that have acknowledged message delivery (or storage).
-       This sequence is only non-empty during recovery (i.e. message replay). Usually
-       not used by applications.</p></dd><dt class="param">ack</dt><dd class="cmt"><p>Whether or not a channel should write an acknowledgement to the journal.
-       Used by event processors to emit a series of messages (derived from a single
-       input message) where only for the last emitted message an acknowledgement
-       should be written.
+      <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>A message for communicating application events. Application events are not interpreted
+by the <a href="https://github.com/eligosource/eventsourced">eventsourced library</a> and can have
+any type. Since the library doesn't make any assumptions about the structure and semantics
+of <code>event</code>, applications may also choose to send <i>commands</i> with <a name="org.eligosource.eventsourced.core.Message" class="extype" href="">Message</a>s.
+In other words, the library can be used for both, event-sourcing and command-sourcing.</p><p>Messages sent to an <a name="org.eligosource.eventsourced.core.Eventsourced" class="extype" href="Eventsourced.html">Eventsourced</a> processor
+are called <i>input</i> messages. Processors process input messages and optionally
+<i>emit</i> (or send) <i>output</i> messages to one or more destinations, usually via
+<a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>s. Output messages should be derived
+from input messages using the <code>copy(...)</code> method. Processors may also reply to
+initial senders using the actor's current <code>sender</code> reference.
+</p></div><dl class="paramcmts block"><dt class="param">event</dt><dd class="cmt"><p>Application event (or command).</p></dd><dt class="param">senderMessageId</dt><dd class="cmt"><p>Optional, sender-defined message id that allows receivers
+       to detect duplicates (which may occur during recovery or fail-over).</p></dd><dt class="param">sequenceNr</dt><dd class="cmt"><p>Sequence number that is generated when messages are written
+       to the journal. Can also be used for detecting duplicates, in special cases.</p></dd><dt class="param">processorId</dt><dd class="cmt"><p>Id of the event processor that stored (and emitted) this message.</p></dd><dt class="param">ack</dt><dd class="cmt"><p>Whether or not an <i>acknowledgement</i> should be written to the journal during
+       (or after) delivery of this message by a <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>.
+       Used by event processors to indicate a series of output messages (that are derived
+       from a single input message). In this case, output messages 1 to n-1 should have set
+       <code>ack</code> to <code>false</code> and only output message n should have set <code>ack</code> to <code>true</code> (default).
+       If an acknowledgement has been written for a series, all messages of that series will
+       be ignored by the corresponding channel during a replay, otherwise all of them will
+       be delivered again. Refer to <a name="org.eligosource.eventsourced.core.DefaultChannel" class="extype" href="DefaultChannel.html">DefaultChannel</a>
+       and <a name="org.eligosource.eventsourced.core.ReliableChannel" class="extype" href="ReliableChannel.html">ReliableChannel</a> for details when they
+       write acknowledgements.
 </p></dd></dl><div class="toggleContainer block">
           <span class="toggle">Linear Supertypes</span>
           <div class="superTypes hiddenContent"><span name="scala.Serializable" class="extype">Serializable</span>, <span name="java.io.Serializable" class="extype">Serializable</span>, <span name="scala.Product" class="extype">Product</span>, <span name="scala.Equals" class="extype">Equals</span>, AnyRef, <span name="scala.Any" class="extype">Any</span></div>
@@ -88,19 +87,21 @@ words, the library can be used for both, event-sourcing and command-sourcing.
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">Message</span><span class="params">(<span name="event">event: <span name="scala.Any" class="extype">Any</span></span>, <span name="sender">sender: <span name="scala.Option" class="extype">Option</span>[<span name="akka.actor.ActorRef" class="extype">ActorRef</span>] = <span class="symbol">scala.None</span></span>, <span name="senderMessageId">senderMessageId: <span name="scala.Option" class="extype">Option</span>[String] = <span class="symbol">scala.None</span></span>, <span name="sequenceNr">sequenceNr: <span name="scala.Long" class="extype">Long</span> = <span class="symbol">0L</span></span>, <span name="processorId">processorId: <span name="scala.Int" class="extype">Int</span> = <span class="symbol">0</span></span>, <span name="acks">acks: Seq[<span name="scala.Int" class="extype">Int</span>] = <span class="symbol">immutable.this.Nil</span></span>, <span name="ack">ack: <span name="scala.Boolean" class="extype">Boolean</span> = <span class="symbol">true</span></span>)</span>
+        <span class="name">Message</span><span class="params">(<span name="event">event: <span name="scala.Any" class="extype">Any</span></span>, <span name="senderMessageId">senderMessageId: <span name="scala.Option" class="extype">Option</span>[String] = <span class="symbol">scala.None</span></span>, <span name="sequenceNr">sequenceNr: <span name="scala.Long" class="extype">Long</span> = <span class="symbol">0L</span></span>, <span name="processorId">processorId: <span name="scala.Int" class="extype">Int</span> = <span class="symbol">0</span></span>, <span name="acks">acks: Seq[<span name="scala.Int" class="extype">Int</span>] = <span class="symbol">immutable.this.Nil</span></span>, <span name="ack">ack: <span name="scala.Boolean" class="extype">Boolean</span> = <span class="symbol">true</span></span>, <span name="posConfirmationTarget">posConfirmationTarget: <span name="akka.actor.ActorRef" class="extype">ActorRef</span> = <span class="symbol">null</span></span>, <span name="posConfirmationMessage">posConfirmationMessage: <span name="scala.Any" class="extype">Any</span> = <span class="symbol">null</span></span>, <span name="negConfirmationTarget">negConfirmationTarget: <span name="akka.actor.ActorRef" class="extype">ActorRef</span> = <span class="symbol">null</span></span>, <span name="negConfirmationMessage">negConfirmationMessage: <span name="scala.Any" class="extype">Any</span> = <span class="symbol">null</span></span>)</span>
       </span>
       </h4>
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">event</dt><dd class="cmt"><p>Application event (or command).</p></dd><dt class="param">sender</dt><dd class="cmt"><p>Optional, application-defined sender reference that can be used
-       by event processors to send responses to initial event message senders.</p></dd><dt class="param">senderMessageId</dt><dd class="cmt"><p>Optional, sender-defined message id that allows receivers
-       to detect duplicates (which may occur during recovery or fail-over).</p></dd><dt class="param">sequenceNr</dt><dd class="cmt"><p>Sequence number which is generated when messages are written
-       to a journal. Can also be used for detecting duplicates, in special cases.</p></dd><dt class="param">processorId</dt><dd class="cmt"><p>id of the event processor that stored (and emitted) this message
-       The processor id is given by <code>Eventsourced.id</code>.</p></dd><dt class="param">acks</dt><dd class="cmt"><p>List of channel ids that have acknowledged message delivery (or storage).
-       This sequence is only non-empty during recovery (i.e. message replay). Usually
-       not used by applications.</p></dd><dt class="param">ack</dt><dd class="cmt"><p>Whether or not a channel should write an acknowledgement to the journal.
-       Used by event processors to emit a series of messages (derived from a single
-       input message) where only for the last emitted message an acknowledgement
-       should be written.
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">event</dt><dd class="cmt"><p>Application event (or command).</p></dd><dt class="param">senderMessageId</dt><dd class="cmt"><p>Optional, sender-defined message id that allows receivers
+       to detect duplicates (which may occur during recovery or fail-over).</p></dd><dt class="param">sequenceNr</dt><dd class="cmt"><p>Sequence number that is generated when messages are written
+       to the journal. Can also be used for detecting duplicates, in special cases.</p></dd><dt class="param">processorId</dt><dd class="cmt"><p>Id of the event processor that stored (and emitted) this message.</p></dd><dt class="param">ack</dt><dd class="cmt"><p>Whether or not an <i>acknowledgement</i> should be written to the journal during
+       (or after) delivery of this message by a <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>.
+       Used by event processors to indicate a series of output messages (that are derived
+       from a single input message). In this case, output messages 1 to n-1 should have set
+       <code>ack</code> to <code>false</code> and only output message n should have set <code>ack</code> to <code>true</code> (default).
+       If an acknowledgement has been written for a series, all messages of that series will
+       be ignored by the corresponding channel during a replay, otherwise all of them will
+       be delivered again. Refer to <a name="org.eligosource.eventsourced.core.DefaultChannel" class="extype" href="DefaultChannel.html">DefaultChannel</a>
+       and <a name="org.eligosource.eventsourced.core.ReliableChannel" class="extype" href="ReliableChannel.html">ReliableChannel</a> for details when they
+       write acknowledgements.
 </p></dd></dl></div>
     </li></ol>
             </div>
@@ -182,10 +183,17 @@ words, the library can be used for both, event-sourcing and command-sourcing.
         <span class="name">ack</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Whether or not a channel should write an acknowledgement to the journal.</p><div class="fullcomment"><div class="comment cmt"><p>Whether or not a channel should write an acknowledgement to the journal.
-       Used by event processors to emit a series of messages (derived from a single
-       input message) where only for the last emitted message an acknowledgement
-       should be written.
+      <p class="shortcomment cmt">Whether or not an <i>acknowledgement</i> should be written to the journal during
+       (or after) delivery of this message by a <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Whether or not an <i>acknowledgement</i> should be written to the journal during
+       (or after) delivery of this message by a <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>.
+       Used by event processors to indicate a series of output messages (that are derived
+       from a single input message). In this case, output messages 1 to n-1 should have set
+       <code>ack</code> to <code>false</code> and only output message n should have set <code>ack</code> to <code>true</code> (default).
+       If an acknowledgement has been written for a series, all messages of that series will
+       be ignored by the corresponding channel during a replay, otherwise all of them will
+       be delivered again. Refer to <a name="org.eligosource.eventsourced.core.DefaultChannel" class="extype" href="DefaultChannel.html">DefaultChannel</a>
+       and <a name="org.eligosource.eventsourced.core.ReliableChannel" class="extype" href="ReliableChannel.html">ReliableChannel</a> for details when they
+       write acknowledgements.
 </p></div></div>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.Message#acks" data-isabs="false">
       <a id="acks:Seq[Int]"></a>
@@ -198,9 +206,7 @@ words, the library can be used for both, event-sourcing and command-sourcing.
         <span class="name">acks</span><span class="result">: Seq[<span name="scala.Int" class="extype">Int</span>]</span>
       </span>
       </h4>
-      <p class="shortcomment cmt">List of channel ids that have acknowledged message delivery (or storage).</p><div class="fullcomment"><div class="comment cmt"><p>List of channel ids that have acknowledged message delivery (or storage).
-       This sequence is only non-empty during recovery (i.e. message replay). Usually
-       not used by applications.</p></div></div>
+      
     </li><li visbl="pub" name="scala.Any#asInstanceOf" data-isabs="false">
       <a id="asInstanceOf[T0]:T0"></a>
       <h4 class="signature">
@@ -240,6 +246,23 @@ words, the library can be used for both, event-sourcing and command-sourcing.
                 <span class="name">@throws</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Message#confirm" data-isabs="false">
+      <a id="confirm(Boolean):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">confirm</span><span class="params">(<span name="pos">pos: <span name="scala.Boolean" class="extype">Boolean</span> = <span class="symbol">true</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Should be called by <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a> destinations to
+(positively or negatively) confirm the receipt of this event message.</p><div class="fullcomment"><div class="comment cmt"><p>Should be called by <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a> destinations to
+(positively or negatively) confirm the receipt of this event message. Destinations
+may also delegate this call other actors or threads.
+</p></div><dl class="paramcmts block"><dt class="param">pos</dt><dd class="cmt"><p><code>true</code> for a positive receipt confirmation, <code>false</code> for a negative one.
+</p></dd></dl></div>
     </li><li visbl="pub" name="scala.AnyRef#eq" data-isabs="false">
       <a id="eq(AnyRef):Boolean"></a>
       <h4 class="signature">
@@ -339,6 +362,30 @@ words, the library can be used for both, event-sourcing and command-sourcing.
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Message#negConfirmationMessage" data-isabs="false">
+      <a id="negConfirmationMessage:Any"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">negConfirmationMessage</span><span class="result">: <span name="scala.Any" class="extype">Any</span></span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Message#negConfirmationTarget" data-isabs="false">
+      <a id="negConfirmationTarget:ActorRef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">negConfirmationTarget</span><span class="result">: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>
+      </span>
+      </h4>
+      
     </li><li visbl="pub" name="scala.AnyRef#notify" data-isabs="false">
       <a id="notify():Unit"></a>
       <h4 class="signature">
@@ -363,6 +410,30 @@ words, the library can be used for both, event-sourcing and command-sourcing.
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Message#posConfirmationMessage" data-isabs="false">
+      <a id="posConfirmationMessage:Any"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">posConfirmationMessage</span><span class="result">: <span name="scala.Any" class="extype">Any</span></span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Message#posConfirmationTarget" data-isabs="false">
+      <a id="posConfirmationTarget:ActorRef"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">val</span>
+      </span>
+      <span class="symbol">
+        <span class="name">posConfirmationTarget</span><span class="result">: <span name="akka.actor.ActorRef" class="extype">ActorRef</span></span>
+      </span>
+      </h4>
+      
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.Message#processorId" data-isabs="false">
       <a id="processorId:Int"></a>
       <h4 class="signature">
@@ -374,8 +445,7 @@ words, the library can be used for both, event-sourcing and command-sourcing.
         <span class="name">processorId</span><span class="result">: <span name="scala.Int" class="extype">Int</span></span>
       </span>
       </h4>
-      <p class="shortcomment cmt">id of the event processor that stored (and emitted) this message
-       The processor id is given by <code>Eventsourced.id</code>.</p>
+      <p class="shortcomment cmt">Id of the event processor that stored (and emitted) this message.</p>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.Message#productArity" data-isabs="false">
       <a id="productArity:Int"></a>
       <h4 class="signature">
@@ -424,19 +494,6 @@ words, the library can be used for both, event-sourcing and command-sourcing.
       </span>
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Message" class="extype" href="">Message</a> → Product</dd></dl></div>
-    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Message#sender" data-isabs="false">
-      <a id="sender:Option[ActorRef]"></a>
-      <h4 class="signature">
-      <span class="modifier_kind">
-        <span class="modifier"></span>
-        <span class="kind">val</span>
-      </span>
-      <span class="symbol">
-        <span class="name">sender</span><span class="result">: <span name="scala.Option" class="extype">Option</span>[<span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>
-      </span>
-      </h4>
-      <p class="shortcomment cmt">Optional, application-defined sender reference that can be used
-       by event processors to send responses to initial event message senders.</p>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.Message#senderMessageId" data-isabs="false">
       <a id="senderMessageId:Option[String]"></a>
       <h4 class="signature">
@@ -461,9 +518,9 @@ words, the library can be used for both, event-sourcing and command-sourcing.
         <span class="name">sequenceNr</span><span class="result">: <span name="scala.Long" class="extype">Long</span></span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Sequence number which is generated when messages are written
-       to a journal.</p><div class="fullcomment"><div class="comment cmt"><p>Sequence number which is generated when messages are written
-       to a journal. Can also be used for detecting duplicates, in special cases.</p></div></div>
+      <p class="shortcomment cmt">Sequence number that is generated when messages are written
+       to the journal.</p><div class="fullcomment"><div class="comment cmt"><p>Sequence number that is generated when messages are written
+       to the journal. Can also be used for detecting duplicates, in special cases.</p></div></div>
     </li><li visbl="pub" name="scala.AnyRef#synchronized" data-isabs="false">
       <a id="synchronized[T0](⇒ T0):T0"></a>
       <h4 class="signature">
