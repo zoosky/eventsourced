@@ -188,17 +188,19 @@ library (such as <a name="org.eligosource.eventsourced.core.Confirm" class="exty
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.Emitter#channels" data-isabs="false">
-      <a id="channels:Map[String, ActorRef]"></a>
+      <a id="channels:Map[Int, ActorRef]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">channels</span><span class="result">: Map[String, <span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>
+        <span class="name">channels</span><span class="result">: Map[<span name="scala.Int" class="extype">Int</span>, <span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Returns a map of registered <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>s.</p>
+      <p class="shortcomment cmt">Returns a map of registered <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>s.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a map of registered <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>s.
+Mapping key is the channel id.
+</p></div></div>
     </li><li visbl="prt" name="scala.AnyRef#clone" data-isabs="false">
       <a id="clone():AnyRef"></a>
       <h4 class="signature">
@@ -256,6 +258,24 @@ is not of type <a name="org.eligosource.eventsourced.core.Message" class="extype
       <p class="shortcomment cmt">Returns a message emitter that captures the current event <code>message</code> and a channel
 that has been registered under <code>channelName</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a message emitter that captures the current event <code>message</code> and a channel
 that has been registered under <code>channelName</code>. If no channel exists for <code>channelName</code>
+it will be <code>context.system.deadLetters</code>. Applications can run the returned emitter
+from within any thread for sending output messages (which will be derived from the
+captured event <code>message</code>).
+</p></div></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Emitter#emitter" data-isabs="false">
+      <a id="emitter(Int):MessageEmitter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">emitter</span><span class="params">(<span name="channelId">channelId: <span name="scala.Int" class="extype">Int</span></span>)</span><span class="result">: <a name="org.eligosource.eventsourced.core.MessageEmitter" class="extype" href="MessageEmitter.html">MessageEmitter</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a message emitter that captures the current event <code>message</code> and a channel
+that has been registered under <code>channelId</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a message emitter that captures the current event <code>message</code> and a channel
+that has been registered under <code>channelId</code>. If no channel exists for <code>channelId</code>
 it will be <code>context.system.deadLetters</code>. Applications can run the returned emitter
 from within any thread for sending output messages (which will be derived from the
 captured event <code>message</code>).
@@ -381,6 +401,20 @@ is not of type <a name="org.eligosource.eventsourced.core.Message" class="extype
       <p class="shortcomment cmt">Current event message option.</p><div class="fullcomment"><div class="comment cmt"><p>Current event message option. <code>None</code> if the last message received by this receiver
 is not of type <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>.
 </p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="org.eligosource.eventsourced.core.Receiver" class="extype" href="Receiver.html">Receiver</a></dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.Emitter#namedChannels" data-isabs="false">
+      <a id="namedChannels:Map[String, ActorRef]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">namedChannels</span><span class="result">: Map[String, <span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a map of registered named <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>s.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a map of registered named <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>s.
+Mapping key is the channel name.
+</p></div></div>
     </li><li visbl="pub" name="scala.AnyRef#ne" data-isabs="false">
       <a id="ne(AnyRef):Boolean"></a>
       <h4 class="signature">

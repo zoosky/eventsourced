@@ -167,24 +167,25 @@ event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="M
       </span>
       </h4>
       <p class="shortcomment cmt">Creates and registers a <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>.</p><div class="fullcomment"><div class="comment cmt"><p>Creates and registers a <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>. The channel is
-registered under the name given by <code>props.name</code>.
+registered under the id specified by <code>props.id</code>. If <code>props.name</code> is defined it is also
+registered under that name.
 </p></div><dl class="paramcmts block"><dt class="param">props</dt><dd class="cmt"><p>channel configuration object.</p></dd><dt class="param">actorRefFactory</dt><dd class="cmt"><p><a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a> ref factory.</p></dd><dt>returns</dt><dd class="cmt"><p>a channel ref.
 </p></dd></dl><dl class="attributes block"> <dt>See also</dt><dd><span class="cmt"><p><a name="org.eligosource.eventsourced.core.DefaultChannelProps" class="extype" href="DefaultChannelProps.html">DefaultChannelProps</a>
      <a name="org.eligosource.eventsourced.core.ReliableChannelProps" class="extype" href="ReliableChannelProps.html">ReliableChannelProps</a>
 </p></span></dd></dl></div>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#channels" data-isabs="false">
-      <a id="channels:Map[String, ActorRef]"></a>
+      <a id="channels:Map[Int, ActorRef]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">channels</span><span class="result">: Map[String, <span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>
+        <span class="name">channels</span><span class="result">: Map[<span name="scala.Int" class="extype">Int</span>, <span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>
       </span>
       </h4>
       <p class="shortcomment cmt">Map of registered <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>s.</p><div class="fullcomment"><div class="comment cmt"><p>Map of registered <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>s. Mapping key is
-the channel name.
+the channel id.
 </p></div></div>
     </li><li visbl="prt" name="scala.AnyRef#clone" data-isabs="false">
       <a id="clone():AnyRef"></a>
@@ -202,17 +203,17 @@ the channel name.
               
         </dd></dl></div>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#deliver" data-isabs="false">
-      <a id="deliver(String):Unit"></a>
+      <a id="deliver(Int):Unit"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">deliver</span><span class="params">(<span name="channelName">channelName: String</span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+        <span class="name">deliver</span><span class="params">(<span name="channelId">channelId: <span name="scala.Int" class="extype">Int</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
       </span>
       </h4>
-      <p class="shortcomment cmt">Enables the channel registered under <code>channelName</code> and starts delivery of pending messages.</p>
+      <p class="shortcomment cmt">Enables the channel registered under <code>channelId</code> and starts delivery of pending messages.</p>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#deliver" data-isabs="false">
       <a id="deliver():Unit"></a>
       <h4 class="signature">
@@ -312,6 +313,20 @@ the channel name.
       </span>
       </h4>
       <p class="shortcomment cmt">Journal for this extension.</p>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#namedChannels" data-isabs="false">
+      <a id="namedChannels:Map[String, ActorRef]"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">namedChannels</span><span class="result">: Map[String, <span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Map of registered named <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>s.</p><div class="fullcomment"><div class="comment cmt"><p>Map of registered named <a name="org.eligosource.eventsourced.core.Channel" class="extype" href="Channel.html">Channel</a>s. Mapping key is
+the channel name.
+</p></div></div>
     </li><li visbl="pub" name="scala.AnyRef#ne" data-isabs="false">
       <a id="ne(AnyRef):Boolean"></a>
       <h4 class="signature">
@@ -443,6 +458,34 @@ this context.
 </p></div><dl class="paramcmts block"><dt class="param">f</dt><dd class="cmt"><p>function called for each processor id. If the function returns <code>None</code>
        no message replay will be done for that processor. If it returns <code>Some(snr)</code>
        message replay will start from sequence number <code>snr</code> for that processor.
+</p></dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#stopChannel" data-isabs="false">
+      <a id="stopChannel(Int)(ActorRefFactory):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">stopChannel</span><span class="params">(<span name="channelId">channelId: <span name="scala.Int" class="extype">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="actorRefFactory">actorRefFactory: <span name="akka.actor.ActorRefFactory" class="extype">ActorRefFactory</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Stops and deregisters the channel identified by <code>channelId</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Stops and deregisters the channel identified by <code>channelId</code>.
+</p></div><dl class="paramcmts block"><dt class="param">channelId</dt><dd class="cmt"><p>channel id.
+</p></dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.EventsourcingExtension#stopProcessor" data-isabs="false">
+      <a id="stopProcessor(Int)(ActorRefFactory):Unit"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">stopProcessor</span><span class="params">(<span name="processorId">processorId: <span name="scala.Int" class="extype">Int</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="actorRefFactory">actorRefFactory: <span name="akka.actor.ActorRefFactory" class="extype">ActorRefFactory</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Stops and deregisters the processor identified by <code>processorId</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Stops and deregisters the processor identified by <code>processorId</code>.
+</p></div><dl class="paramcmts block"><dt class="param">processorId</dt><dd class="cmt"><p>processor id.
 </p></dd></dl></div>
     </li><li visbl="pub" name="scala.AnyRef#synchronized" data-isabs="false">
       <a id="synchronized[T0](⇒ T0):T0"></a>

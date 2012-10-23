@@ -68,10 +68,10 @@ for a certain <a name="org.eligosource.eventsourced.core.Channel" class="extype"
         <span class="kind">new</span>
       </span>
       <span class="symbol">
-        <span class="name">MessageEmitterFactory</span><span class="params">(<span name="channels">channels: Map[String, <span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>, <span name="message">message: <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="system">system: <span name="akka.actor.ActorSystem" class="extype">ActorSystem</span></span>)</span>
+        <span class="name">MessageEmitterFactory</span><span class="params">(<span name="channels">channels: Map[<span name="scala.Int" class="extype">Int</span>, <span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>, <span name="namedChannels">namedChannels: Map[String, <span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>, <span name="message">message: <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="system">system: <span name="akka.actor.ActorSystem" class="extype">ActorSystem</span></span>)</span>
       </span>
       </h4>
-      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">channels</dt><dd class="cmt"><p>channel map.</p></dd><dt class="param">message</dt><dd class="cmt"><p>event message.
+      <p class="shortcomment cmt"></p><div class="fullcomment"><div class="comment cmt"></div><dl class="paramcmts block"><dt class="param">channels</dt><dd class="cmt"><p>channel map.</p></dd><dt class="param">namedChannels</dt><dd class="cmt"><p>named channel map.</p></dd><dt class="param">message</dt><dd class="cmt"><p>event message.
 </p></dd></dl></div>
     </li></ol>
             </div>
@@ -155,14 +155,14 @@ for a certain <a name="org.eligosource.eventsourced.core.Channel" class="extype"
       </h4>
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Any</dd></dl></div>
     </li><li visbl="pub" name="org.eligosource.eventsourced.core.MessageEmitterFactory#channels" data-isabs="false">
-      <a id="channels:Map[String, ActorRef]"></a>
+      <a id="channels:Map[Int, ActorRef]"></a>
       <h4 class="signature">
       <span class="modifier_kind">
         <span class="modifier"></span>
         <span class="kind">val</span>
       </span>
       <span class="symbol">
-        <span class="name">channels</span><span class="result">: Map[String, <span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>
+        <span class="name">channels</span><span class="result">: Map[<span name="scala.Int" class="extype">Int</span>, <span name="akka.actor.ActorRef" class="extype">ActorRef</span>]</span>
       </span>
       </h4>
       <p class="shortcomment cmt">channel map.</p>
@@ -232,10 +232,27 @@ for a certain <a name="org.eligosource.eventsourced.core.Channel" class="extype"
       </span>
       </h4>
       <p class="shortcomment cmt">Returns a message emitter containing <code>message</code> and a channel mapped
-with <code>channelName</code> in <code>channels</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a message emitter containing <code>message</code> and a channel mapped
-with <code>channelName</code> in <code>channels</code>. If the mapping doesn't exist the
+with <code>channelName</code> in <code>namedChannels</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a message emitter containing <code>message</code> and a channel mapped
+with <code>channelName</code> in <code>namedChannels</code>. If the mapping doesn't exist the
 channel will be <code>system.deadLetters</code>.
-</p></div><dl class="paramcmts block"><dt class="param">channelName</dt><dd class="cmt"><p>mapping key in <code>channels</code>
+</p></div><dl class="paramcmts block"><dt class="param">channelName</dt><dd class="cmt"><p>mapping key in <code>namedChannels</code>
+</p></dd></dl></div>
+    </li><li visbl="pub" name="org.eligosource.eventsourced.core.MessageEmitterFactory#forChannel" data-isabs="false">
+      <a id="forChannel(Int):MessageEmitter"></a>
+      <h4 class="signature">
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">forChannel</span><span class="params">(<span name="channelId">channelId: <span name="scala.Int" class="extype">Int</span></span>)</span><span class="result">: <a name="org.eligosource.eventsourced.core.MessageEmitter" class="extype" href="MessageEmitter.html">MessageEmitter</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Returns a message emitter containing <code>message</code> and a channel mapped
+with <code>channelId</code> in <code>channels</code>.</p><div class="fullcomment"><div class="comment cmt"><p>Returns a message emitter containing <code>message</code> and a channel mapped
+with <code>channelId</code> in <code>channels</code>. If the mapping doesn't exist the
+channel will be <code>system.deadLetters</code>.
+</p></div><dl class="paramcmts block"><dt class="param">channelId</dt><dd class="cmt"><p>mapping key in <code>channels</code>
 </p></dd></dl></div>
     </li><li visbl="pub" name="scala.AnyRef#getClass" data-isabs="false">
       <a id="getClass():java.lang.Class[_]"></a>
