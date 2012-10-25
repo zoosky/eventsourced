@@ -31,11 +31,11 @@
       
       <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>A persistent channel that sends event <a name="org.eligosource.eventsourced.core.Message" class="extype" href="Message.html">Message</a>s to
 <code>destination</code>. Every event message sent to this channel is stored in the journal together
-with an <i>acknowledgement</i> (which is used during replay to decide if a channel should
+with an <i>acknowledgement</i> (which is used during replay to decide if the channel should
 ignore a message or not). If <code>destination</code> positively confirms the receipt of an event
 message with <code>Message.confirm()</code> the stored message is deleted from the journal. If
 <code>destination</code> negatively confirms the receipt of an event message with <code>Message.confirm(false)</code>
-or no confirmation was made (i.e. a timeout occurred), a re-delivery is attempted. If the
+or no confirmation was made (i.e. a timeout occurred), a re-delivery attempt is made. If the
 maximum number of re-delivery attempts have been made, the channel restarts itself after
 a certain <i>recovery delay</i> (and starts again with re-deliveries).</p><p>A <code>ReliableChannel</code> preserves the <code>sender</code> reference (i.e. forwards it to <code>destination</code>) only
 after initial delivery (which occurs, for example, during <code>EventsourcingExtension.recover()</code>
